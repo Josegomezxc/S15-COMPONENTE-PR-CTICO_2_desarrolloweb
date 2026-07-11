@@ -1,0 +1,252 @@
+{
+  "info": {
+    "name": "Tienda Virtual API",
+    "description": "Colección de Postman para la API de Tienda Virtual\n\nAutenticación: JWT - Las rutas protegidas requieren token Bearer en el header Authorization.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Registrar usuario",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Admin\",\n  \"email\": \"admin@tienda.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Iniciar sesión",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@tienda.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": { "raw": "http://localhost:5000/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Obtener perfil (protegido)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "http://localhost:5000/api/auth/profile", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "auth", "profile"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios (protegido)",
+      "item": [
+        {
+          "name": "Obtener perfil",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "http://localhost:5000/api/usuarios/perfil", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "usuarios", "perfil"] }
+          }
+        },
+        {
+          "name": "Actualizar perfil",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Admin Actualizado\",\n  \"email\": \"admin@tienda.com\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/usuarios/perfil", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "usuarios", "perfil"] }
+          }
+        },
+        {
+          "name": "Cambiar contraseña",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"passwordActual\": \"123456\",\n  \"nuevaPassword\": \"654321\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/usuarios/cambiar-password", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "usuarios", "cambiar-password"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categorías",
+      "item": [
+        {
+          "name": "Listar categorías",
+          "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:5000/api/categorias", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "categorias"] } }
+        },
+        {
+          "name": "Crear categoría (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Electrónicos\",\n  \"descripcion\": \"Productos electrónicos y tecnología\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/categorias", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "categorias"] }
+          }
+        },
+        {
+          "name": "Actualizar categoría (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Electrónicos y Tecnología\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/categorias/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "categorias", ":id"] }
+          }
+        },
+        {
+          "name": "Eliminar categoría (admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "http://localhost:5000/api/categorias/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "categorias", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "Listar productos",
+          "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:5000/api/productos", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "productos"] } }
+        },
+        {
+          "name": "Listar productos por categoría",
+          "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:5000/api/productos?categoria=ID_CATEGORIA", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "productos"], "query": [{ "key": "categoria", "value": "ID_CATEGORIA" }] } }
+        },
+        {
+          "name": "Obtener producto por ID",
+          "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:5000/api/productos/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "productos", ":id"] } }
+        },
+        {
+          "name": "Crear producto (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Laptop Gamer\",\n  \"descripcion\": \"Laptop de alto rendimiento\",\n  \"precio\": 25000,\n  \"categoria\": \"ID_CATEGORIA\",\n  \"stock\": 10,\n  \"imagen\": \"https://ejemplo.com/laptop.jpg\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/productos", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "Actualizar producto (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"precio\": 23000,\n  \"stock\": 15\n}" },
+            "url": { "raw": "http://localhost:5000/api/productos/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "productos", ":id"] }
+          }
+        },
+        {
+          "name": "Eliminar producto (admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "http://localhost:5000/api/productos/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "productos", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Carrito (protegido)",
+      "item": [
+        {
+          "name": "Ver carrito",
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "http://localhost:5000/api/carrito", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "carrito"] } }
+        },
+        {
+          "name": "Agregar producto al carrito",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"productoId\": \"ID_PRODUCTO\",\n  \"cantidad\": 2\n}" },
+            "url": { "raw": "http://localhost:5000/api/carrito", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "carrito"] }
+          }
+        },
+        {
+          "name": "Actualizar cantidad",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"cantidad\": 3\n}" },
+            "url": { "raw": "http://localhost:5000/api/carrito/:productoId", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "carrito", ":productoId"] }
+          }
+        },
+        {
+          "name": "Eliminar producto del carrito",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "http://localhost:5000/api/carrito/:productoId", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "carrito", ":productoId"] }
+          }
+        },
+        {
+          "name": "Vaciar carrito",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "http://localhost:5000/api/carrito", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "carrito"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Órdenes (protegido)",
+      "item": [
+        {
+          "name": "Crear orden (desde carrito)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"direccionEnvio\": \"Calle Principal 123, Colonia Centro\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/ordenes", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ordenes"] }
+          }
+        },
+        {
+          "name": "Listar mis órdenes",
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "http://localhost:5000/api/ordenes", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ordenes"] } }
+        },
+        {
+          "name": "Ver detalle de orden",
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "http://localhost:5000/api/ordenes/:id", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ordenes", ":id"] } }
+        },
+        {
+          "name": "Listar todas las órdenes (admin)",
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "http://localhost:5000/api/ordenes/todas", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ordenes", "todas"] } }
+        },
+        {
+          "name": "Actualizar estado de orden (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"estado\": \"enviado\"\n}" },
+            "url": { "raw": "http://localhost:5000/api/ordenes/:id/estado", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "ordenes", ":id", "estado"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard (admin)",
+      "item": [
+        {
+          "name": "Obtener estadísticas",
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "http://localhost:5000/api/dashboard/stats", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "dashboard", "stats"] } }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Verificar API",
+          "request": { "method": "GET", "header": [], "url": { "raw": "http://localhost:5000/api/health", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api", "health"] } }
+        }
+      ]
+    }
+  ],
+  "variable": [{ "key": "token", "value": "" }]
+}
