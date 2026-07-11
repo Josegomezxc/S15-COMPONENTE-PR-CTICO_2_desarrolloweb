@@ -41,6 +41,10 @@ export function AuthProvider({ children }) {
     return res.data;
   };
 
+  const actualizarUsuario = (data) => {
+    setUsuario(data);
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
@@ -49,7 +53,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ usuario, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ usuario, loading, login, register, actualizarUsuario, logout }}>
       {children}
     </AuthContext.Provider>
   );

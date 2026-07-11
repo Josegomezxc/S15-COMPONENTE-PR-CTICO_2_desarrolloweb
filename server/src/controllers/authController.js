@@ -26,6 +26,7 @@ export const registrar = async (req, res) => {
       nombre: usuario.nombre,
       email: usuario.email,
       rol: usuario.rol,
+      foto: usuario.foto,
       token
     });
   } catch (error) {
@@ -54,6 +55,7 @@ export const login = async (req, res) => {
       nombre: usuario.nombre,
       email: usuario.email,
       rol: usuario.rol,
+      foto: usuario.foto,
       token
     });
   } catch (error) {

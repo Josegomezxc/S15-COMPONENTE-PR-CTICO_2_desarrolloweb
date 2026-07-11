@@ -82,7 +82,11 @@ export default function Navbar() {
                 </Link>
               )}
               <Link to="/perfil" className={`nav-link nav-user ${isActive('/perfil')}`}>
-                <span className="material-symbols-outlined">account_circle</span>
+                {usuario?.foto ? (
+                  <img src={usuario.foto} alt="" className="nav-avatar" />
+                ) : (
+                  <span className="material-symbols-outlined">account_circle</span>
+                )}
               </Link>
               <button onClick={handleLogout} className="nav-link nav-btn">
                 <span className="material-symbols-outlined">logout</span>

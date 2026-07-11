@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import api from '../services/api';
@@ -6,9 +6,12 @@ import Message from '../components/Message';
 import AdminSidebar from '../components/AdminSidebar';
 
 export default function Profile() {
-  const { usuario } = useAuth();
+  const { usuario, actualizarUsuario } = useAuth();
   const { t } = useLanguage();
+  const fileInputRef = useRef(null);
   const [form, setForm] = useState({ nombre: usuario?.nombre || '', email: usuario?.email || '' });
+  const [previewFoto, setPreviewFoto] = useState(null);
+  const [fotoChanged, setFotoChanged] = useState(false);
   const [passwordForm, setPasswordForm] = useState({ passwordActual: '', nuevaPassword: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -19,12 +22,28 @@ export default function Profile() {
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   const handlePasswordChange = (e) => setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value });
 
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewFoto(reader.result);
+        setFotoChanged(true);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setError(''); setSuccess('');
     try {
       setLoading(true);
-      await api.put('/usuarios/perfil', form);
+      const datos = { ...form };
+      if (fotoChanged && previewFoto) datos.foto = previewFoto;
+      const res = await api.put('/usuarios/perfil', datos);
+      actualizarUsuario({ ...usuario, ...res.data });
+      setFotoChanged(false);
       setSuccess(t('profile.updated'));
     } catch (err) {
       setError(err.response?.data?.mensaje || t('profile.passwordError'));
@@ -61,6 +80,20 @@ export default function Profile() {
             <h2>{t('profile.personalInfo')}</h2>
           </div>
           <p className="profile-role">{t('profile.role', { role: usuario?.rol === 'admin' ? t('profile.administrator') : t('profile.customer') })}</p>
+          <div className="profile-photo-section">
+            <div className="profile-photo" onClick={() => fileInputRef.current?.click()}>
+              {previewFoto || usuario?.foto ? (
+                <img src={previewFoto || usuario?.foto} alt={t('profile.photoAlt')} />
+              ) : (
+                <span className="material-symbols-outlined">person</span>
+              )}
+            </div>
+            <button type="button" className="btn btn-outline btn-sm" onClick={() => fileInputRef.current?.click()}>
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>photo_camera</span>
+              {t('profile.changePhoto')}
+            </button>
+            <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
+          </div>
           <Message tipo="error" mensaje={error} />
           <Message tipo="success" mensaje={success} />
           <form onSubmit={handleUpdateProfile}>

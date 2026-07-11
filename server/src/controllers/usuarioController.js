@@ -15,7 +15,7 @@ export const obtenerPerfil = async (req, res) => {
 
 export const actualizarPerfil = async (req, res) => {
   try {
-    const { nombre, email } = req.body;
+    const { nombre, email, foto } = req.body;
 
     const usuario = await Usuario.findById(req.usuario._id);
 
@@ -28,6 +28,7 @@ export const actualizarPerfil = async (req, res) => {
     }
 
     if (nombre) usuario.nombre = nombre;
+    if (foto) usuario.foto = foto;
 
     const actualizado = await usuario.save();
     res.json(actualizado);
