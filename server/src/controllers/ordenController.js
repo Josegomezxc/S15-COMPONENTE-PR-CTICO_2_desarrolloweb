@@ -68,7 +68,9 @@ export const crearOrden = async (req, res) => {
 
 export const obtenerOrdenes = async (req, res) => {
   try {
-    const ordenes = await Orden.find({ usuario: req.usuario._id })
+    const filtro = req.usuario.rol === 'admin' ? {} : { usuario: req.usuario._id };
+    const ordenes = await Orden.find(filtro)
+      .populate('usuario', 'nombre email')
       .sort({ createdAt: -1 });
     res.json(ordenes);
   } catch (error) {
@@ -78,10 +80,10 @@ export const obtenerOrdenes = async (req, res) => {
 
 export const obtenerOrden = async (req, res) => {
   try {
-    const orden = await Orden.findOne({
-      _id: req.params.id,
-      usuario: req.usuario._id
-    }).populate('items.producto', 'nombre precio imagen');
+    const filtro = req.usuario.rol === 'admin'
+      ? { _id: req.params.id }
+      : { _id: req.params.id, usuario: req.usuario._id };
+    const orden = await Orden.findOne(filtro).populate('items.producto', 'nombre precio imagen');
 
     if (!orden) {
       return res.status(404).json({ mensaje: 'Orden no encontrada' });

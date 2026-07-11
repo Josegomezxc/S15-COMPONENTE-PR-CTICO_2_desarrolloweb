@@ -2,15 +2,52 @@ import Producto from '../models/Producto.js';
 
 export const obtenerProductos = async (req, res) => {
   try {
-    const { categoria } = req.query;
+    const { categoria, sort, q, precioMin, precioMax, enOferta, page, limit } = req.query;
     const filtro = { activo: true };
 
     if (categoria) {
       filtro.categoria = categoria;
     }
 
-    const productos = await Producto.find(filtro).populate('categoria', 'nombre');
-    res.json(productos);
+    if (q) {
+      filtro.nombre = { $regex: q, $options: 'i' };
+    }
+
+    if (precioMin || precioMax) {
+      filtro.precio = {};
+      if (precioMin) filtro.precio.$gte = Number(precioMin);
+      if (precioMax) filtro.precio.$lte = Number(precioMax);
+    }
+
+    if (enOferta === 'true') {
+      filtro.enOferta = true;
+    }
+
+    let orden = {};
+    if (sort === 'precio') orden.precio = 1;
+    else if (sort === '-precio') orden.precio = -1;
+    else if (sort === 'nombre') orden.nombre = 1;
+    else orden.createdAt = -1;
+
+    const pageNum = Math.max(1, parseInt(page) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 100));
+    const skip = (pageNum - 1) * limitNum;
+
+    const [productos, total] = await Promise.all([
+      Producto.find(filtro)
+        .sort(orden)
+        .skip(skip)
+        .limit(limitNum)
+        .populate('categoria', 'nombre'),
+      Producto.countDocuments(filtro)
+    ]);
+
+    res.json({
+      data: productos,
+      total,
+      page: pageNum,
+      totalPages: Math.ceil(total / limitNum)
+    });
   } catch (error) {
     res.status(500).json({ mensaje: error.message });
   }

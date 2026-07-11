@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -17,6 +18,16 @@ import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
 import OrderDetail from './pages/OrderDetail';
 import Profile from './pages/Profile';
+import Categorias from './pages/Categorias';
+import Ofertas from './pages/Ofertas';
+import Contacto from './pages/Contacto';
+import About from './pages/About';
+import Carreras from './pages/Carreras';
+import Privacidad from './pages/Privacidad';
+import Terminos from './pages/Terminos';
+import ForgotPassword from './pages/ForgotPassword';
+import AdminUsuarios from './pages/AdminUsuarios';
+import AdminActividad from './pages/AdminActividad';
 import './App.css';
 
 function App() {
@@ -24,6 +35,7 @@ function App() {
     <Router>
       <AuthProvider>
         <CartProvider>
+          <LanguageProvider>
           <div className="app">
             <Navbar />
             <main className="main-content">
@@ -33,6 +45,14 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/productos" element={<ProductList />} />
                 <Route path="/productos/:id" element={<ProductDetail />} />
+                <Route path="/categorias" element={<Categorias />} />
+                <Route path="/ofertas" element={<Ofertas />} />
+                <Route path="/contacto" element={<Contacto />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/carreras" element={<Carreras />} />
+                <Route path="/privacidad" element={<Privacidad />} />
+                <Route path="/terminos" element={<Terminos />} />
+                <Route path="/olvide-contrasena" element={<ForgotPassword />} />
                 <Route
                   path="/carrito"
                   element={
@@ -103,10 +123,31 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/admin/usuarios"
+                  element={
+                    <ProtectedRoute>
+                      <AdminRoute>
+                        <AdminUsuarios />
+                      </AdminRoute>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/actividad"
+                  element={
+                    <ProtectedRoute>
+                      <AdminRoute>
+                        <AdminActividad />
+                      </AdminRoute>
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
             </main>
             <Footer />
           </div>
+        </LanguageProvider>
         </CartProvider>
       </AuthProvider>
     </Router>

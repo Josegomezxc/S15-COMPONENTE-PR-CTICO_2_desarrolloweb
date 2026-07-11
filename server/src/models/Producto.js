@@ -33,6 +33,10 @@ const productoSchema = new mongoose.Schema({
   activo: {
     type: Boolean,
     default: true
+  },
+  enOferta: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

@@ -4,7 +4,7 @@ Sistema web de tienda virtual desarrollado con React y Node.js como proyecto uni
 
 ## Tecnologías
 
-- **Frontend:** React 19, Vite 8, React Router, Axios
+- **Frontend:** React 19, Vite 8, React Router, Axios, Recharts
 - **Backend:** Node.js, Express
 - **Base de datos:** MongoDB + Mongoose
 - **Autenticación:** JWT (JSON Web Token)
@@ -19,10 +19,12 @@ Sistema web de tienda virtual desarrollado con React y Node.js como proyecto uni
 
 ## Instalación
 
-### Backend
-
 ```bash
+# Backend
 cd server
+npm install
+
+# Frontend (desde la raíz)
 npm install
 ```
 
@@ -35,101 +37,140 @@ JWT_SECRET=mi_app_tienda_virtual_secret_key_2026
 JWT_EXPIRES_IN=7d
 ```
 
-### Frontend
-
-```bash
-npm install
-```
-
 ## Ejecución
 
-### Backend (desde la raíz del proyecto)
-
 ```bash
-cd server
+# Terminal 1 - Backend
+cd server && npm run dev
+
+# Terminal 2 - Frontend
 npm run dev
 ```
 
-El servidor se ejecutará en `http://localhost:5000`
+Backend: `http://localhost:5000`
+Frontend: `http://localhost:5173`
 
-### Frontend (desde la raíz del proyecto)
+## Seed de datos
 
 ```bash
-npm run dev
+cd server && node seed.js
 ```
 
-La aplicación se ejecutará en `http://localhost:5173`
+### Credenciales de prueba
+- **Admin:** admin@tienda.com / 123456
+- **Cliente:** cliente@tienda.com / 123456
+
+## Funcionalidades
+
+### Autenticación y Usuarios
+- Registro e inicio de sesión con JWT
+- Perfil de usuario (editar nombre, email)
+- Cambio de contraseña
+- Roles: administrador y cliente
+
+### Productos
+- Catálogo público con filtro por categoría
+- Vista detalle con selector de cantidad
+- CRUD completo (solo admin)
+- Categorización de productos
+
+### Carrito de Compras
+- Agregar/quitar productos
+- Actualizar cantidades
+- Persistencia por usuario
+- Indicador con badge en navbar
+
+### Órdenes
+- Crear orden desde el carrito (descuenta stock)
+- Listado de órdenes del usuario
+- Detalle de orden con productos
+- Administración de estados (admin): pendiente, pagado, enviado, entregado, cancelado
+
+### Dashboard (Admin)
+- Tarjetas con estadísticas (productos, órdenes, usuarios, ventas)
+- Gráfico de barras: ventas por mes
+- Gráfico de pastel: productos por categoría
+- Gráfico de barras: órdenes por estado
 
 ## API Endpoints
 
 ### Autenticación
-
 | Método | Ruta | Descripción | Auth |
 |--------|------|-------------|------|
-| POST | `/api/auth/register` | Registrar usuario | No |
-| POST | `/api/auth/login` | Iniciar sesión | No |
-| GET | `/api/auth/profile` | Obtener perfil | JWT |
+| POST | `/api/auth/register` | Registrar | No |
+| POST | `/api/auth/login` | Login | No |
+| GET | `/api/auth/profile` | Perfil | JWT |
+
+### Usuarios
+| Método | Ruta | Descripción | Auth |
+|--------|------|-------------|------|
+| GET | `/api/usuarios/perfil` | Obtener perfil | JWT |
+| PUT | `/api/usuarios/perfil` | Actualizar perfil | JWT |
+| PUT | `/api/usuarios/cambiar-password` | Cambiar password | JWT |
 
 ### Productos
-
 | Método | Ruta | Descripción | Auth |
 |--------|------|-------------|------|
-| GET | `/api/productos` | Listar productos | No |
-| GET | `/api/productos/:id` | Obtener producto | No |
-| POST | `/api/productos` | Crear producto | Admin |
-| PUT | `/api/productos/:id` | Actualizar producto | Admin |
-| DELETE | `/api/productos/:id` | Eliminar producto | Admin |
+| GET | `/api/productos` | Listar | No |
+| GET | `/api/productos/:id` | Detalle | No |
+| POST | `/api/productos` | Crear | Admin |
+| PUT | `/api/productos/:id` | Actualizar | Admin |
+| DELETE | `/api/productos/:id` | Eliminar | Admin |
 
 ### Categorías
-
 | Método | Ruta | Descripción | Auth |
 |--------|------|-------------|------|
-| GET | `/api/categorias` | Listar categorías | No |
-| POST | `/api/categorias` | Crear categoría | Admin |
-| PUT | `/api/categorias/:id` | Actualizar categoría | Admin |
-| DELETE | `/api/categorias/:id` | Eliminar categoría | Admin |
+| GET | `/api/categorias` | Listar | No |
+| POST | `/api/categorias` | Crear | Admin |
+| PUT | `/api/categorias/:id` | Actualizar | Admin |
+| DELETE | `/api/categorias/:id` | Eliminar | Admin |
 
-## Script del seed de datos
+### Carrito (protegido)
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| GET | `/api/carrito` | Ver carrito |
+| POST | `/api/carrito` | Agregar producto |
+| PUT | `/api/carrito/:productoId` | Actualizar cantidad |
+| DELETE | `/api/carrito/:productoId` | Quitar producto |
+| DELETE | `/api/carrito` | Vaciar carrito |
 
-Para crear un usuario administrador y datos de prueba, ejecuta en el backend:
+### Órdenes (protegido)
+| Método | Ruta | Descripción | Auth |
+|--------|------|-------------|------|
+| POST | `/api/ordenes` | Crear orden | JWT |
+| GET | `/api/ordenes` | Mis órdenes | JWT |
+| GET | `/api/ordenes/:id` | Detalle | JWT |
+| GET | `/api/ordenes/todas` | Todas | Admin |
+| PUT | `/api/ordenes/:id/estado` | Cambiar estado | Admin |
 
-```bash
-node seed.js
-```
+### Dashboard
+| Método | Ruta | Descripción | Auth |
+|--------|------|-------------|------|
+| GET | `/api/dashboard/stats` | Estadísticas | Admin |
 
 ## Estructura del proyecto
 
 ```
 mi-app/
-├── server/                  # Backend
+├── server/                       # Backend
 │   ├── src/
-│   │   ├── config/          # Conexión a MongoDB
-│   │   ├── controllers/     # Lógica de negocio
-│   │   ├── middleware/       # Auth, manejo de errores
-│   │   ├── models/          # Modelos Mongoose
-│   │   ├── routes/          # Rutas de la API
-│   │   └── validations/     # Validaciones
-│   ├── index.js             # Punto de entrada
+│   │   ├── config/               # Conexión MongoDB
+│   │   ├── controllers/          # Lógica de negocio
+│   │   ├── middleware/            # Auth, errores
+│   │   ├── models/               # Mongoose: Usuario, Producto, Categoria, Carrito, Orden
+│   │   ├── routes/               # Rutas API
+│   │   └── validations/          # Validaciones
+│   ├── index.js
+│   ├── seed.js
 │   └── package.json
-├── src/                     # Frontend
-│   ├── components/          # Componentes reutilizables
-│   ├── contexts/            # Contexto de autenticación
-│   ├── pages/               # Páginas de la aplicación
-│   └── services/            # Cliente API (Axios)
-├── postman/                 # Colección de Postman
+├── src/                          # Frontend
+│   ├── components/               # Navbar, Footer, ProductCard, etc.
+│   ├── contexts/                 # AuthContext, CartContext
+│   ├── pages/                    # Dashboard, Login, Register, Productos, Carrito, etc.
+│   └── services/                 # Axios API client
+├── postman/                      # Colección Postman
 └── package.json
 ```
-
-## Funcionalidades
-
-- Registro e inicio de sesión con JWT
-- Protección de rutas privadas y de administrador
-- CRUD completo de productos
-- Categorización de productos
-- Filtrado de productos por categoría
-- Diseño responsivo
-- Validaciones en frontend y backend
-- Manejo de errores
 
 ## Diseño en Figma
 
@@ -137,4 +178,4 @@ mi-app/
 
 ## Licencia
 
-Proyecto académico - Universidad
+Proyecto académico

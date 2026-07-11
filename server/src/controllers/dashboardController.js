@@ -5,13 +5,21 @@ import Categoria from '../models/Categoria.js';
 
 export const obtenerStats = async (req, res) => {
   try {
+    const { startDate, endDate } = req.query;
+
+    const fechaFiltro = {};
+    if (startDate) fechaFiltro.$gte = new Date(startDate);
+    if (endDate) fechaFiltro.$lte = new Date(endDate);
+
+    const ordenesQuery = {};
+    if (startDate || endDate) ordenesQuery.createdAt = fechaFiltro;
+
     const totalProductos = await Producto.countDocuments({ activo: true });
-    const totalOrdenes = await Orden.countDocuments();
     const totalUsuarios = await Usuario.countDocuments();
     const totalCategorias = await Categoria.countDocuments();
 
-    const ordenes = await Orden.find();
-
+    const ordenes = await Orden.find(ordenesQuery);
+    const totalOrdenes = ordenes.length;
     const ventasTotales = ordenes.reduce((sum, o) => sum + o.total, 0);
 
     const ventasPorMes = [];

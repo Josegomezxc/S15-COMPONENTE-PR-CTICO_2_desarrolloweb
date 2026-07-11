@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useCarrito } from '../contexts/CartContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Cart() {
+  const { t } = useLanguage();
   const { carrito, loading, actualizarCantidad, eliminarDelCarrito, vaciarCarrito } = useCarrito();
   const navigate = useNavigate();
 
@@ -12,28 +14,24 @@ export default function Cart() {
     (sum, item) => sum + (item.producto?.precio || 0) * item.cantidad, 0
   ) || 0;
 
-  const handleCantidadChange = (item, nuevaCantidad) => {
-    if (nuevaCantidad < 1) return;
-    if (nuevaCantidad > (item.producto?.stock || 0)) return;
-    actualizarCantidad(item.producto._id, nuevaCantidad);
-  };
-
   return (
     <div className="cart-page">
       <div className="cart-header">
-        <h1>Carrito de Compras</h1>
+        <h1>{t('cart.title')}</h1>
         {carrito.items?.length > 0 && (
           <button onClick={vaciarCarrito} className="btn btn-delete">
-            Vaciar Carrito
+            <span className="material-symbols-outlined" style={{fontSize:18}}>delete_sweep</span>
+            {t('cart.clear')}
           </button>
         )}
       </div>
 
       {!carrito.items || carrito.items.length === 0 ? (
         <div className="empty-cart">
-          <h2>Tu carrito está vacío</h2>
-          <p>Agrega productos desde nuestro catálogo</p>
-          <Link to="/productos" className="btn btn-primary">Ver Productos</Link>
+          <span className="material-symbols-outlined empty-icon">shopping_cart</span>
+          <h2>{t('cart.empty')}</h2>
+          <p>{t('cart.emptyDesc')}</p>
+          <Link to="/productos" className="btn btn-primary">{t('cart.browse')}</Link>
         </div>
       ) : (
         <>
@@ -44,47 +42,40 @@ export default function Cart() {
                   {item.producto?.imagen ? (
                     <img src={item.producto.imagen} alt={item.producto.nombre} />
                   ) : (
-                    <div className="cart-item-placeholder">Sin imagen</div>
+                    <span className="material-symbols-outlined" style={{fontSize:32, color:'var(--on-surface-variant)'}}>image</span>
                   )}
                 </div>
                 <div className="cart-item-info">
                   <h3>{item.producto?.nombre || 'Producto'}</h3>
-                  <p className="cart-item-precio">
-                    ${(item.producto?.precio || 0).toFixed(2)}
-                  </p>
+                  <p className="cart-item-precio">${(item.producto?.precio || 0).toFixed(2)}</p>
                 </div>
-                <div className="cart-item-cantidad">
-                  <button
-                    onClick={() => handleCantidadChange(item, item.cantidad - 1)}
-                    className="btn-qty"
-                  >-</button>
+                <div className="qty-selector">
+                  <button onClick={() => actualizarCantidad(item.producto._id, Math.max(1, item.cantidad - 1))} className="btn-qty">
+                    <span className="material-symbols-outlined">remove</span>
+                  </button>
                   <span>{item.cantidad}</span>
-                  <button
-                    onClick={() => handleCantidadChange(item, item.cantidad + 1)}
-                    className="btn-qty"
-                  >+</button>
+                  <button onClick={() => actualizarCantidad(item.producto._id, Math.min(item.producto?.stock || 99, item.cantidad + 1))} className="btn-qty">
+                    <span className="material-symbols-outlined">add</span>
+                  </button>
                 </div>
                 <div className="cart-item-subtotal">
                   ${((item.producto?.precio || 0) * item.cantidad).toFixed(2)}
                 </div>
-                <button
-                  onClick={() => eliminarDelCarrito(item.producto._id)}
-                  className="btn btn-delete btn-sm"
-                >Eliminar</button>
+                <button onClick={() => eliminarDelCarrito(item.producto._id)} className="btn btn-icon btn-delete">
+                  <span className="material-symbols-outlined">delete</span>
+                </button>
               </div>
             ))}
           </div>
 
-          <div className="cart-resumen">
+          <div className="cart-summary">
             <div className="cart-total">
-              <span>Total:</span>
-              <span className="cart-total-monto">${total.toFixed(2)}</span>
+              <span>{t('cart.estimatedTotal')}</span>
+              <span className="cart-total-amount">${total.toFixed(2)}</span>
             </div>
-            <button
-              onClick={() => navigate('/checkout')}
-              className="btn btn-primary btn-lg btn-block"
-            >
-              Proceder al Pago
+            <button onClick={() => navigate('/checkout')} className="btn btn-primary btn-lg btn-block">
+              {t('cart.checkout')}
+              <span className="material-symbols-outlined" style={{fontSize:18}}>arrow_forward</span>
             </button>
           </div>
         </>

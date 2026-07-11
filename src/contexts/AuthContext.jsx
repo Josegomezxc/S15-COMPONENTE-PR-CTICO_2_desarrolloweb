@@ -3,31 +3,39 @@ import api from '../services/api';
 
 const AuthContext = createContext();
 
+function getStorage() {
+  return localStorage.getItem('rememberMe') === 'true' ? localStorage : sessionStorage;
+}
+
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const storage = getStorage();
+    const token = storage.getItem('token');
     if (token) {
       api.get('/auth/profile')
         .then((res) => setUsuario(res.data))
-        .catch(() => localStorage.removeItem('token'))
+        .catch(() => storage.removeItem('token'))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, recordar = true) => {
     const res = await api.post('/auth/login', { email, password });
-    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('rememberMe', recordar);
+    const storage = recordar ? localStorage : sessionStorage;
+    storage.setItem('token', res.data.token);
     setUsuario(res.data);
     return res.data;
   };
 
   const register = async (nombre, email, password) => {
     const res = await api.post('/auth/register', { nombre, email, password });
+    localStorage.setItem('rememberMe', 'true');
     localStorage.setItem('token', res.data.token);
     setUsuario(res.data);
     return res.data;
@@ -35,6 +43,8 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    localStorage.removeItem('rememberMe');
     setUsuario(null);
   };
 

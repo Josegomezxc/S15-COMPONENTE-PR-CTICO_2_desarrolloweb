@@ -1,5 +1,14 @@
 import Usuario from '../models/Usuario.js';
 
+export const listarUsuarios = async (req, res) => {
+  try {
+    const usuarios = await Usuario.find().select('-password').sort({ createdAt: -1 });
+    res.json(usuarios);
+  } catch (error) {
+    res.status(500).json({ mensaje: error.message });
+  }
+};
+
 export const obtenerPerfil = async (req, res) => {
   res.json(req.usuario);
 };

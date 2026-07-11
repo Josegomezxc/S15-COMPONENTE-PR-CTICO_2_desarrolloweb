@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCarrito } from '../contexts/CartContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import api from '../services/api';
 import Message from '../components/Message';
 
 export default function Checkout() {
+  const { t } = useLanguage();
   const { carrito, vaciarCarrito } = useCarrito();
   const navigate = useNavigate();
   const [direccion, setDireccion] = useState('');
@@ -18,10 +20,9 @@ export default function Checkout() {
   if (!carrito.items || carrito.items.length === 0) {
     return (
       <div className="empty-cart">
-        <h2>No hay productos para pagar</h2>
-        <button onClick={() => navigate('/productos')} className="btn btn-primary">
-          Ir a productos
-        </button>
+        <span className="material-symbols-outlined empty-icon">shopping_cart</span>
+        <h2>{t('checkout.empty')}</h2>
+        <button onClick={() => navigate('/productos')} className="btn btn-primary">{t('checkout.browse')}</button>
       </div>
     );
   }
@@ -29,19 +30,14 @@ export default function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
-    if (!direccion.trim()) {
-      setError('La dirección de envío es obligatoria');
-      return;
-    }
-
+    if (!direccion.trim()) { setError(t('checkout.addressRequired')); return; }
     try {
       setLoading(true);
       await api.post('/ordenes', { direccionEnvio: direccion });
       await vaciarCarrito();
-      navigate('/ordenes', { state: { success: 'Orden creada exitosamente' } });
+      navigate('/ordenes', { state: { success: t('checkout.orderCreated') } });
     } catch (err) {
-      setError(err.response?.data?.mensaje || 'Error al procesar la orden');
+      setError(err.response?.data?.mensaje || t('detailOrder.statusError'));
     } finally {
       setLoading(false);
     }
@@ -49,11 +45,10 @@ export default function Checkout() {
 
   return (
     <div className="checkout-page">
-      <h1>Finalizar Compra</h1>
-
-      <div className="checkout-content">
-        <div className="checkout-resumen">
-          <h2>Resumen de la orden</h2>
+      <h1>{t('checkout.title')}</h1>
+      <div className="checkout-grid">
+        <div className="checkout-summary">
+          <h2>{t('checkout.summary')}</h2>
           {carrito.items.map((item) => (
             <div key={item.producto?._id} className="checkout-item">
               <span>{item.producto?.nombre} x{item.cantidad}</span>
@@ -61,26 +56,29 @@ export default function Checkout() {
             </div>
           ))}
           <div className="checkout-total">
-            <strong>Total:</strong>
-            <strong>${total.toFixed(2)}</strong>
+            <strong>{t('checkout.total')}</strong>
+            <strong className="checkout-total-amount">${total.toFixed(2)}</strong>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="checkout-form">
-          <h2>Dirección de Envío</h2>
+        <form onSubmit={handleSubmit} className="checkout-form-card">
+          <h2>{t('checkout.shipping')}</h2>
           <Message tipo="error" mensaje={error} />
           <div className="form-group">
-            <label>Dirección *</label>
-            <textarea
-              value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
-              placeholder="Calle, número, colonia, ciudad, código postal"
-              rows="4"
-              required
-            />
+            <label>{t('checkout.address')}</label>
+            <div className="input-wrapper">
+              <span className="material-symbols-outlined input-icon">location_on</span>
+              <textarea
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+                placeholder={t('checkout.addressPlaceholder')}
+                rows="3"
+                required
+              />
+            </div>
           </div>
           <button type="submit" className="btn btn-primary btn-lg btn-block" disabled={loading}>
-            {loading ? 'Procesando...' : 'Confirmar Compra - $' + total.toFixed(2)}
+            {loading ? t('checkout.processing') : t('checkout.placeOrder', { total: total.toFixed(2) })}
           </button>
         </form>
       </div>
