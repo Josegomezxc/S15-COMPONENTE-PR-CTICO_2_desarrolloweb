@@ -28,6 +28,8 @@ import Terminos from './pages/Terminos';
 import ForgotPassword from './pages/ForgotPassword';
 import AdminUsuarios from './pages/AdminUsuarios';
 import AdminActividad from './pages/AdminActividad';
+import AdminMensajes from './pages/AdminMensajes';
+import MisMensajes from './pages/MisMensajes';
 import './App.css';
 
 function App() {
@@ -94,6 +96,14 @@ function App() {
                   }
                 />
                 <Route
+                  path="/mis-mensajes"
+                  element={
+                    <ProtectedRoute>
+                      <MisMensajes />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/admin/productos"
                   element={
                     <ProtectedRoute>
@@ -139,6 +149,16 @@ function App() {
                     <ProtectedRoute>
                       <AdminRoute>
                         <AdminActividad />
+                      </AdminRoute>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/mensajes"
+                  element={
+                    <ProtectedRoute>
+                      <AdminRoute>
+                        <AdminMensajes />
                       </AdminRoute>
                     </ProtectedRoute>
                   }

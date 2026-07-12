@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import api from '../services/api';
 
 export default function AdminSidebar() {
   const { logout } = useAuth();
@@ -11,6 +12,13 @@ export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(() => {
     return localStorage.getItem('sidebarCollapsed') === 'true';
   });
+  const [pendientes, setPendientes] = useState(0);
+
+  useEffect(() => {
+    api.get('/contacto/pendientes/count')
+      .then(res => setPendientes(res.data.count || 0))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const app = document.querySelector('.app');
@@ -69,6 +77,18 @@ export default function AdminSidebar() {
         </Link>
         <Link to="/admin/usuarios" className={`sidebar-item ${isActive('/admin/usuarios')}`}>
           <span className="material-symbols-outlined">group</span> <span className="sidebar-label">{t('admin.customers')}</span>
+        </Link>
+        <Link to="/admin/mensajes" className={`sidebar-item ${isActive('/admin/mensajes')}`} style={{ position: 'relative' }}>
+          <span className="material-symbols-outlined">mail</span> <span className="sidebar-label">{t('admin.messages')}</span>
+          {pendientes > 0 && (
+            <span style={{
+              position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)',
+              background: 'var(--error)', color: 'var(--on-error)',
+              fontSize: 10, fontWeight: 700, minWidth: 18, height: 18,
+              borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              padding: '0 4px', lineHeight: 1
+            }}>{pendientes > 99 ? '99+' : pendientes}</span>
+          )}
         </Link>
         <Link to="/perfil" className={`sidebar-item ${isActive('/perfil')}`}>
           <span className="material-symbols-outlined">settings</span> <span className="sidebar-label">{t('admin.settings')}</span>

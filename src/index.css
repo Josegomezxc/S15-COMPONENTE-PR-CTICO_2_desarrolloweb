@@ -231,8 +231,8 @@ select { appearance: none; cursor: pointer; }
   to   { opacity: 1; transform: scale(1); }
 }
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; margin-top: 12px; }
+  to   { opacity: 1; margin-top: 0; }
 }
 
 .entrance-fade { animation: fadeInUp 0.5s var(--ease-out) both; }
@@ -758,20 +758,24 @@ html.dark .navbar {
   background: var(--surface-container-highest); border-radius: 8px; margin-top: auto;
 }
 .admin-main {
-  flex: 1; padding: 16px;
-  margin-left: 256px;
+  flex: 1; padding: 16px; text-align: left;
+  margin-left: 10px;
   transition: margin-left 0.3s var(--ease-out);
   animation: slideUp 0.4s var(--ease-out) both; animation-delay: 0.1s;
 }
 .app.sidebar-collapsed .admin-main {
   margin-left: 64px;
 }
+@media (max-width: 1023px) {
+  .admin-main { margin-left: 0; }
+  .has-admin-sidebar > .footer { margin-left: 0; }
+}
+.app.sidebar-collapsed .admin-main {
+  margin-left: 64px;
+}
 
 .has-admin-sidebar > .footer {
-  position: relative; z-index: 51;
   margin-left: 256px;
-  width: calc(100% - 256px);
-  transition: margin-left 0.3s var(--ease-out), width 0.3s var(--ease-out);
 }
 .has-admin-sidebar.sidebar-collapsed > .footer {
   margin-left: 64px;
@@ -780,8 +784,8 @@ html.dark .navbar {
 .admin-header {
   display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;
 }
-.admin-header h2 { font-size: 24px; font-weight: 600; color: var(--primary); }
-.admin-header p { font-size: 14px; color: var(--on-surface-variant); }
+.admin-header h2 { font-size: 24px; font-weight: 600; color: var(--primary); text-align: left; }
+.admin-header p { font-size: 14px; color: var(--on-surface-variant); text-align: left; }
 .admin-actions { display: flex; gap: 8px; }
 
 /* Admin table */
@@ -796,7 +800,7 @@ html.dark .navbar {
   background: var(--surface-container-low); border-bottom: 1px solid var(--outline-variant);
   text-align: left;
 }
-.admin-table td { padding: 16px; border-bottom: 1px solid var(--outline-variant); font-size: 14px; }
+.admin-table td { padding: 16px; border-bottom: 1px solid var(--outline-variant); font-size: 14px; text-align: left; }
 .admin-table tbody tr:hover { background: var(--surface-container); }
 .admin-table .product-img {
   width: 56px; height: 56px; border-radius: 8px; overflow: hidden;

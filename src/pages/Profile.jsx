@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import api from '../services/api';
@@ -9,7 +9,8 @@ export default function Profile() {
   const { usuario, actualizarUsuario } = useAuth();
   const { t } = useLanguage();
   const fileInputRef = useRef(null);
-  const [form, setForm] = useState({ nombre: usuario?.nombre || '', email: usuario?.email || '' });
+  const [form, setForm] = useState({ nombre: '', email: '' });
+  const [isDirty, setIsDirty] = useState(false);
   const [previewFoto, setPreviewFoto] = useState(null);
   const [fotoChanged, setFotoChanged] = useState(false);
   const [passwordForm, setPasswordForm] = useState({ passwordActual: '', nuevaPassword: '', confirmPassword: '' });
@@ -19,7 +20,17 @@ export default function Profile() {
   const [passwordSuccess, setPasswordSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  useEffect(() => {
+    if (usuario) {
+      setForm({ nombre: usuario.nombre || '', email: usuario.email || '' });
+      setIsDirty(false);
+    }
+  }, [usuario]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if (!isDirty) setIsDirty(true);
+  };
   const handlePasswordChange = (e) => setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value });
 
   const handleFileChange = (e) => {
@@ -43,6 +54,7 @@ export default function Profile() {
       if (fotoChanged && previewFoto) datos.foto = previewFoto;
       const res = await api.put('/usuarios/perfil', datos);
       actualizarUsuario({ ...usuario, ...res.data });
+      setIsDirty(false);
       setFotoChanged(false);
       setSuccess(t('profile.updated'));
     } catch (err) {
@@ -68,6 +80,7 @@ export default function Profile() {
     } finally { setLoading(false); }
   };
 
+  const hasChanges = isDirty || fotoChanged;
   const isAdmin = usuario?.rol === 'admin';
 
   const profileContent = (
@@ -111,7 +124,7 @@ export default function Profile() {
                 <input type="email" name="email" value={form.email} onChange={handleChange} required />
               </div>
             </div>
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <button type="submit" className="btn btn-primary" disabled={loading || !hasChanges} title={!hasChanges ? '🔒' : ''}>
               {loading ? t('profile.saving') : t('profile.saveChanges')}
             </button>
           </form>

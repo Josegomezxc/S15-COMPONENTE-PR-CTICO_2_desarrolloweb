@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCarrito } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import api from '../services/api';
 
 export default function Navbar() {
   const { usuario, logout } = useAuth();
@@ -16,6 +17,23 @@ export default function Navbar() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [mensajesPendientes, setMensajesPendientes] = useState(0);
+
+  const fetchMensajesCount = useCallback(() => {
+    if (usuario) {
+      api.get('/contacto/mis-mensajes/count')
+        .then((res) => setMensajesPendientes(res.data.count || 0))
+        .catch(() => {});
+    } else {
+      setMensajesPendientes(0);
+    }
+  }, [usuario]);
+
+  useEffect(() => {
+    fetchMensajesCount();
+    window.addEventListener('mensaje-enviado', fetchMensajesCount);
+    return () => window.removeEventListener('mensaje-enviado', fetchMensajesCount);
+  }, [fetchMensajesCount]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
@@ -76,6 +94,14 @@ export default function Navbar() {
               <Link to="/ordenes" className={`nav-link ${isActive('/ordenes')}`}>
                 <span className="material-symbols-outlined">receipt_long</span>
               </Link>
+              {usuario.rol !== 'admin' && (
+                <Link to="/mis-mensajes" className={`nav-link nav-cart ${isActive('/mis-mensajes')}`}>
+                  <span className="material-symbols-outlined">mail</span>
+                  {mensajesPendientes > 0 && (
+                    <span className="cart-badge">{mensajesPendientes}</span>
+                  )}
+                </Link>
+              )}
               {usuario.rol === 'admin' && (
                 <Link to="/admin/productos" className={`nav-link ${isActive('/admin/productos')}`}>
                   <span className="material-symbols-outlined">admin_panel_settings</span>

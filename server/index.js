@@ -11,6 +11,7 @@ import dashboardRoutes from './src/routes/dashboard.js';
 import usuarioRoutes from './src/routes/usuarios.js';
 import newsletterRoutes from './src/routes/newsletter.js';
 import activityRoutes from './src/routes/activity.js';
+import contactoRoutes from './src/routes/contacto.js';
 import { errorHandler } from './src/middleware/errorHandler.js';
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/activity', activityRoutes);
+app.use('/api/contacto', contactoRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'API Tienda Virtual funcionando' });
