@@ -44,6 +44,8 @@ const en = {
   'admin.settings': 'Settings',
   'admin.addProduct': 'Add New Product',
   'admin.signOut': 'Sign Out',
+  'admin.collapse': 'Collapse menu',
+  'admin.expand': 'Expand menu',
 
   // Dashboard - Hero
   'hero.badge': 'Enterprise Marketplace',

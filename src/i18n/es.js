@@ -44,6 +44,8 @@ const es = {
   'admin.settings': 'Configuración',
   'admin.addProduct': 'Nuevo Producto',
   'admin.signOut': 'Cerrar Sesión',
+  'admin.collapse': 'Colapsar menú',
+  'admin.expand': 'Expandir menú',
 
   // Dashboard - Hero
   'hero.badge': 'Marketplace Empresarial',
