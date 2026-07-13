@@ -18,12 +18,12 @@ export const obtenerStats = async (req, res) => {
     const totalUsuarios = await Usuario.countDocuments();
     const totalCategorias = await Categoria.countDocuments();
 
-    const ordenes = await Orden.find(ordenesQuery);
+    const ordenes = await Orden.find(ordenesQuery).sort({ createdAt: 1 });
     const totalOrdenes = ordenes.length;
     const ventasTotales = ordenes.reduce((sum, o) => sum + o.total, 0);
 
-    const ventasPorMes = [];
     const ventasPorMesMap = {};
+    const ventasPorDiaMap = {};
 
     ordenes.forEach((o) => {
       const mes = new Date(o.createdAt).toLocaleString('es-ES', {
@@ -31,11 +31,16 @@ export const obtenerStats = async (req, res) => {
         year: 'numeric'
       });
       ventasPorMesMap[mes] = (ventasPorMesMap[mes] || 0) + o.total;
+
+      const dia = new Date(o.createdAt).toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'short'
+      });
+      ventasPorDiaMap[dia] = (ventasPorDiaMap[dia] || 0) + o.total;
     });
 
-    Object.entries(ventasPorMesMap).forEach(([mes, total]) => {
-      ventasPorMes.push({ mes, total });
-    });
+    const ventasPorMes = Object.entries(ventasPorMesMap).map(([label, total]) => ({ label, total }));
+    const ventasPorDia = Object.entries(ventasPorDiaMap).map(([label, total]) => ({ label, total }));
 
     const ordenesPorEstado = [
       { estado: 'pendiente', cantidad: ordenes.filter((o) => o.estado === 'pendiente').length },
@@ -65,6 +70,7 @@ export const obtenerStats = async (req, res) => {
       totalCategorias,
       ventasTotales,
       ventasPorMes,
+      ventasPorDia,
       ordenesPorEstado,
       productosPorCategoria
     });

@@ -46,7 +46,7 @@ export default function Cart() {
                   )}
                 </div>
                 <div className="cart-item-info">
-                  <h3>{item.producto?.nombre || 'Producto'}</h3>
+                  <h3>{t('product.name.' + item.producto?.nombre) || item.producto?.nombre || 'Producto'}</h3>
                   <p className="cart-item-precio">${(item.producto?.precio || 0).toFixed(2)}</p>
                 </div>
                 <div className="qty-selector">

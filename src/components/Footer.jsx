@@ -12,10 +12,10 @@ export default function Footer() {
     if (!newsEmail.trim()) return;
     try {
       await api.post('/newsletter/subscribe', { email: newsEmail });
-      alert('¡Suscripción exitosa!');
+      alert(t('footer.subscribeSuccess'));
       setNewsEmail('');
     } catch {
-      alert('Error al suscribirte. Intenta de nuevo.');
+      alert(t('footer.subscribeError'));
     }
   };
   return (

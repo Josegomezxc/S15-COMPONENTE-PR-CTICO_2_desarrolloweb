@@ -51,7 +51,7 @@ export default function Checkout() {
           <h2>{t('checkout.summary')}</h2>
           {carrito.items.map((item) => (
             <div key={item.producto?._id} className="checkout-item">
-              <span>{item.producto?.nombre} x{item.cantidad}</span>
+              <span>{t('product.name.' + item.producto?.nombre) || item.producto?.nombre} x{item.cantidad}</span>
               <span>${((item.producto?.precio || 0) * item.cantidad).toFixed(2)}</span>
             </div>
           ))}

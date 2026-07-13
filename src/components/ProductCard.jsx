@@ -34,9 +34,9 @@ export default function ProductCard({ producto }) {
       </div>
       <div className="product-card-body">
         <p className="product-card-category">
-          {producto.categoria?.nombre || 'General'}
+          {t('category.name.' + producto.categoria?.nombre) || producto.categoria?.nombre || 'General'}
         </p>
-        <h3>{producto.nombre}</h3>
+        <h3>{t('product.name.' + producto.nombre) || producto.nombre}</h3>
         <div className="product-card-footer">
           <span className="product-card-price">${producto.precio.toFixed(2)}</span>
           <div className="stars">{renderStars(4)}</div>

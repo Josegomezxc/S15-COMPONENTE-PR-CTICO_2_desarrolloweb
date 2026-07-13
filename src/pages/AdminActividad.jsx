@@ -41,13 +41,13 @@ export default function AdminActividad() {
             <h1 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--primary)', marginBottom: '4px' }}>
               {t('admin.recentActivity')}
             </h1>
-            <p style={{ margin: 0, color: 'var(--on-surface-variant)' }}>Historial completo de actividad del sistema</p>
+            <p style={{ margin: 0, color: 'var(--on-surface-variant)' }}>{t('admin.activityFullLog')}</p>
           </div>
         </div>
         {loading ? <LoadingSpinner /> : (
           <div className="chart-card" style={{ padding: 20 }}>
             {actividad.length === 0 ? (
-              <p style={{ textAlign: 'center', padding: 48, color: 'var(--on-surface-variant)' }}>Sin actividad registrada</p>
+              <p style={{ textAlign: 'center', padding: 48, color: 'var(--on-surface-variant)' }}>{t('admin.noActivity')}</p>
             ) : (
               <div className="activity-feed">
                 {actividad.map((item, i) => (

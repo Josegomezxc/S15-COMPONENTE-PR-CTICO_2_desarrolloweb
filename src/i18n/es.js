@@ -345,6 +345,150 @@ const es = {
   'common.delete': 'Eliminar',
   'common.edit': 'Editar',
   'common.back': 'Volver',
+
+  // About
+  'about.p1': 'ProStore es una plataforma institucional de comercio electrónico especializada en electrónica profesional y soluciones de espacio de trabajo. Desde 2014, proveemos a equipos modernos con equipo de grado industrial, respaldado por garantía integral y soporte premium.',
+  'about.p2': 'Nuestra misión es dominar tu flujo de trabajo con productos cuidadosamente seleccionados para profesionales que exigen lo mejor. Creemos en el minimalismo corporativo: calidad sobre cantidad, durabilidad sobre moda, y funcionalidad sobre estética vacía.',
+
+  // Careers
+  'careers.subtitle': 'Únete al equipo de ProStore y forma parte de una de las plataformas de comercio electrónico institucional de más rápido crecimiento.',
+  'careers.job1.title': 'Ingeniero de Software Senior',
+  'careers.job1.details': 'Tiempo completo · Remoto · México',
+  'careers.job2.title': 'Diseñador UX/UI',
+  'careers.job2.details': 'Tiempo completo · Híbrido · CDMX',
+  'careers.job3.title': 'Especialista en Logística',
+  'careers.job3.details': 'Medio tiempo · Presencial · Monterrey',
+  'careers.sendCV': 'Envíanos tu CV a {email}',
+
+  // Deals
+  'deals.subtitle': 'Productos seleccionados con precios especiales.',
+  'deals.empty': 'No hay ofertas disponibles en este momento.',
+
+  // Privacy
+  'privacy.lastUpdated': 'Última actualización: Enero 2025',
+  'privacy.intro': 'En ProStore, valoramos tu privacidad. Esta política describe cómo recopilamos, usamos y protegemos tu información personal.',
+  'privacy.section1.title': 'Información que recopilamos',
+  'privacy.section1.desc': 'Recopilamos información que nos proporcionas directamente, como nombre, correo electrónico y dirección de envío cuando creas una cuenta o realizas una compra.',
+  'privacy.section2.title': 'Uso de la información',
+  'privacy.section2.desc': 'Utilizamos tu información para procesar pedidos, mejorar nuestros servicios y comunicarnos contigo sobre tu cuenta.',
+  'privacy.section3.title': 'Protección de datos',
+  'privacy.section3.desc': 'Implementamos medidas de seguridad técnicas y organizativas para proteger tu información contra acceso no autorizado.',
+  'privacy.section4.title': 'Contacto',
+  'privacy.section4.desc': 'Si tienes preguntas sobre esta política, contáctanos en privacidad@prostore.com',
+
+  // Terms
+  'terms.lastUpdated': 'Última actualización: Enero 2025',
+  'terms.intro': 'Al acceder y utilizar ProStore, aceptas cumplir con estos términos de servicio.',
+  'terms.section1.title': 'Uso del servicio',
+  'terms.section1.desc': 'ProStore proporciona una plataforma para la compra de productos electrónicos y soluciones de espacio de trabajo. Debes ser mayor de 18 años para utilizar nuestros servicios.',
+  'terms.section2.title': 'Cuentas de usuario',
+  'terms.section2.desc': 'Eres responsable de mantener la confidencialidad de tu cuenta y contraseña. Notifícanos inmediatamente sobre cualquier uso no autorizado.',
+  'terms.section3.title': 'Precios y pagos',
+  'terms.section3.desc': 'Todos los precios están en pesos mexicanos (MXN) e incluyen impuestos aplicables. Nos reservamos el derecho de modificar precios en cualquier momento.',
+  'terms.section4.title': 'Envíos y devoluciones',
+  'terms.section4.desc': 'Ofrecemos envíos a toda la república mexicana. Las devoluciones son aceptadas dentro de los 30 días posteriores a la recepción.',
+
+  // Forgot Password
+  'forgot.tokenGenerated': 'Token generado. Revisa tu correo.',
+  'forgot.sendToken': 'Enviar Token',
+  'forgot.passwordUpdated': 'Contraseña actualizada. Ahora puedes iniciar sesión.',
+
+  // Footer Alert
+  'footer.subscribeSuccess': '¡Suscripción exitosa!',
+  'footer.subscribeError': 'Error al suscribirte. Intenta de nuevo.',
+
+  // Dashboard Stats/Labels
+  'dashboard.unitsCount': '{n} Unidades',
+  'dashboard.pendingCount': '{n} Pendientes',
+  'dashboard.inStock': 'Disponible',
+  'dashboard.lowStock': 'Stock Bajo',
+  'dashboard.salesMetric': 'Métrica',
+  'dashboard.valueMetric': 'Valor',
+  'dashboard.monthMetric': 'Mes',
+  'dashboard.salesMetricName': 'Ventas',
+
+  // Admin Users
+  'admin.usersRegistered': '{n} usuarios registrados',
+  'admin.table.name': 'NOMBRE',
+  'admin.table.email': 'EMAIL',
+  'admin.table.role': 'ROL',
+  'admin.table.registered': 'REGISTRO',
+
+  // Admin Activity
+  'admin.activityFullLog': 'Historial completo de actividad del sistema',
+  'admin.noActivity': 'Sin actividad registrada',
+  'admin.loadMessageError': 'Error al cargar mensaje',
+
+  // Category names & descriptions
+  'category.name.Computadoras': 'Computadoras',
+  'category.name.Monitores': 'Monitores',
+  'category.name.Accesorios': 'Accesorios',
+  'category.name.Muebles': 'Muebles',
+  'category.name.Audio': 'Audio',
+  'category.name.Periféricos': 'Periféricos',
+  'category.desc.Computadoras': 'Laptops y equipos de cómputo de alto rendimiento',
+  'category.desc.Monitores': 'Pantallas profesionales para trabajo y gaming',
+  'category.desc.Accesorios': 'Teclados, ratones y accesorios de productividad',
+  'category.desc.Muebles': 'Sillas y escritorios ergonómicos',
+  'category.desc.Audio': 'Audífonos, bocinas y equipos de sonido',
+  'category.desc.Periféricos': 'Cámaras, hubs y dispositivos externos',
+
+  // Product names
+  'product.name.ProBook Ultra 16': 'ProBook Ultra 16',
+  'product.name.WorkStation Pro M2': 'WorkStation Pro M2',
+  'product.name.UltraBook Air 14': 'UltraBook Air 14',
+  'product.name.Gamer Titan X': 'Gamer Titan X',
+  'product.name.ProView 32" 4K': 'ProView 32" 4K',
+  'product.name.UltraWide 34" Curvo': 'UltraWide 34" Curvo',
+  'product.name.Gaming 27" 240Hz': 'Gaming 27" 240Hz',
+  'product.name.Portátil 15" USB-C': 'Portátil 15" USB-C',
+  'product.name.Teclado Mecánico RGB': 'Teclado Mecánico RGB',
+  'product.name.Mouse Inalámbrico Pro': 'Mouse Inalámbrico Pro',
+  'product.name.Alfombrilla XXL Escritorio': 'Alfombrilla XXL Escritorio',
+  'product.name.Webcam 4K Pro': 'Webcam 4K Pro',
+  'product.name.Silla Ergonómica Pro': 'Silla Ergonómica Pro',
+  'product.name.Escritorio Eléctrico Ajustable': 'Escritorio Eléctrico Ajustable',
+  'product.name.Soporte Monitor Dual': 'Soporte Monitor Dual',
+  'product.name.Base Laptop Ajustable': 'Base Laptop Ajustable',
+  'product.name.Audífonos ANC Premium': 'Audífonos ANC Premium',
+  'product.name.Bocina Bluetooth Portátil': 'Bocina Bluetooth Portátil',
+  'product.name.Micrófono Condenser USB': 'Micrófono Condenser USB',
+  'product.name.SoundBar Escritorio': 'SoundBar Escritorio',
+  'product.name.Hub USB-C 12 en 1': 'Hub USB-C 12 en 1',
+  'product.name.Tableta Gráfica Profesional': 'Tableta Gráfica Profesional',
+  'product.name.Lector de Huellas USB': 'Lector de Huellas USB',
+  'product.name.Estación de Carga Múltiple': 'Estación de Carga Múltiple',
+
+  // Product descriptions
+  'product.desc.ProBook Ultra 16': 'Laptop profesional con Intel Core i9-13900H, 32GB DDR5, 1TB SSD NVMe, pantalla 16" 4K OLED, gráficos NVIDIA RTX 4070',
+  'product.desc.WorkStation Pro M2': 'Estación de trabajo con chip M2 Ultra, 64GB RAM unificada, 2TB SSD, ideal para renderizado 3D y video 8K',
+  'product.desc.UltraBook Air 14': 'Ultrabook delgado de 14" con procesador AMD Ryzen 7, 16GB RAM, 512GB SSD, batería de 15 horas',
+  'product.desc.Gamer Titan X': 'Laptop gaming con RTX 4090, 64GB RAM, 2TB SSD, pantalla 17" 240Hz, teclado mecánico RGB',
+  'product.desc.ProView 32" 4K': 'Monitor profesional 32" UHD 4K, panel IPS, calibración de fábrica Delta E<2, 100% sRGB, USB-C 96W',
+  'product.desc.UltraWide 34" Curvo': 'Monitor ultra panorámico 34" WQHD curvo, 144Hz, 1ms, AMD FreeSync Premium Pro, altavoces integrados',
+  'product.desc.Gaming 27" 240Hz': 'Monitor gaming 27" QHD 240Hz, panel OLED, 0.03ms, G-Sync compatible, HDR True Black 600',
+  'product.desc.Portátil 15" USB-C': 'Monitor portátil 15.6" FHD, USB-C plug-and-play, peso 700g, ideal para setups móviles',
+  'product.desc.Teclado Mecánico RGB': 'Teclado mecánico full-size con switches Cherry MX Blue, retroiluminación RGB por tecla, aluminio anodizado',
+  'product.desc.Mouse Inalámbrico Pro': 'Mouse ergonómico inalámbrico con sensor de 26,000 DPI, 8 botones programables, batería 70h, carga rápida',
+  'product.desc.Alfombrilla XXL Escritorio': 'Alfombrilla de escritorio 90x40cm, superficie de tela suave, base antideslizante, bordes cosidos',
+  'product.desc.Webcam 4K Pro': 'Cámara web 4K con enfoque automático, micrófono estéreo, campo de visión 90°, obturador de privacidad',
+  'product.desc.Silla Ergonómica Pro': 'Silla de oficina ergonómica con soporte lumbar ajustable, reposabrazos 4D, malla transpirable, capacidad 150kg',
+  'product.desc.Escritorio Eléctrico Ajustable': 'Escritorio de pie con motor eléctrico de doble elevación, rango 72-120cm, tablero 140x70cm, capacidad 100kg',
+  'product.desc.Soporte Monitor Dual': 'Brazo articulado para dos monitores de hasta 32", ajuste de altura y rotación, gestión de cables integrada',
+  'product.desc.Base Laptop Ajustable': 'Soporte de laptop de aluminio con 6 ángulos ajustables, ventilación integrada, plegable para transporte',
+  'product.desc.Audífonos ANC Premium': 'Audífonos over-ear con cancelación de ruido activa híbrida, 40h batería, codec LDAC, plegables',
+  'product.desc.Bocina Bluetooth Portátil': 'Bocina inalámbrica resistente al agua IP67, sonido 360°, 20h batería, emparejamiento estéreo',
+  'product.desc.Micrófono Condenser USB': 'Micrófono de condensador para streaming y podcast, patrón cardioide, ganancia ajustable, monitor en tiempo real',
+  'product.desc.SoundBar Escritorio': 'Barra de sonido compacta para escritorio, Bluetooth 5.3, USB-C, ecualizador integrado, 30W RMS',
+  'product.desc.Hub USB-C 12 en 1': 'Hub multipuerto con HDMI 4K, Ethernet Gigabit, 3x USB-A, lector SD/TF, audio 3.5mm, PD 100W',
+  'product.desc.Tableta Gráfica Profesional': 'Tableta de dibujo con lápiz sin batería, 8192 niveles de presión, área activa 10x6", atajos personalizables',
+  'product.desc.Lector de Huellas USB': 'Lector biométrico con cifrado AES-256, compatible con Windows Hello, plug-and-play, aluminio',
+  'product.desc.Estación de Carga Múltiple': 'Cargador USB-C con 6 puertos (65W total), carga rápida PD 3.0, GaN, indicadores LED, protección contra sobretensión',
+  'product.name.SmartWatch Pro X': 'SmartWatch Pro X',
+  'product.name.Cloud Runner 2024': 'Cloud Runner 2024',
+  'product.name.SonicWave Headphones': 'SonicWave Headphones',
+  'category.name.Electronics': 'Electrónica',
+  'category.name.Footwear': 'Calzado',
 };
 
 export default es;

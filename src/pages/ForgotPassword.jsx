@@ -23,7 +23,7 @@ export default function ForgotPassword() {
       const res = await api.post('/auth/forgot-password', { email });
       setToken(res.data.token);
       setStep('reset');
-      setSuccess('Token generado. Revisa tu correo.');
+      setSuccess(t('forgot.tokenGenerated'));
     } catch (err) {
       setError(err.response?.data?.mensaje || t('login.error'));
     } finally { setLoading(false); }
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
     try {
       setLoading(true);
       await api.post('/auth/reset-password', { token, nuevaPassword });
-      setSuccess('Contraseña actualizada. Ahora puedes iniciar sesión.');
+      setSuccess(t('forgot.passwordUpdated'));
       setStep('done');
     } catch (err) {
       setError(err.response?.data?.mensaje || t('login.error'));
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
               </div>
             </div>
             <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-              {loading ? t('login.entering') : 'Enviar Token'}
+              {loading ? t('login.entering') : t('forgot.sendToken')}
             </button>
             <p className="auth-link" style={{ marginTop: 16 }}>
               <Link to="/login">{t('detailOrder.back')}</Link>
@@ -72,10 +72,10 @@ export default function ForgotPassword() {
         {step === 'reset' && (
           <form onSubmit={handleResetPassword} className="auth-form">
             <div className="form-group">
-              <label>Nueva Contraseña</label>
+              <label>{t('profile.newPassword')}</label>
               <div className="input-icon-wrap">
                 <span className="material-symbols-outlined input-icon">lock</span>
-                <input type="password" value={nuevaPassword} onChange={(e) => setNuevaPassword(e.target.value)} placeholder="Mín. 6 caracteres" required />
+                <input type="password" value={nuevaPassword} onChange={(e) => setNuevaPassword(e.target.value)} placeholder={t('profile.passwordMin')} required />
               </div>
             </div>
             <button type="submit" className="btn btn-primary btn-block" disabled={loading}>

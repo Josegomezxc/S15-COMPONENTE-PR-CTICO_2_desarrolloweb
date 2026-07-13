@@ -345,6 +345,150 @@ const en = {
   'common.delete': 'Delete',
   'common.edit': 'Edit',
   'common.back': 'Back',
+
+  // About
+  'about.p1': 'ProStore is an institutional e-commerce platform specializing in professional electronics and workspace solutions. Since 2014, we equip modern teams with industrial-grade equipment, backed by a comprehensive warranty and premium support.',
+  'about.p2': 'Our mission is to dominate your workflow with carefully selected products for professionals who demand the best. We believe in corporate minimalism: quality over quantity, durability over trend, and functionality over empty aesthetics.',
+
+  // Careers
+  'careers.subtitle': 'Join the ProStore team and be part of one of the fastest-growing institutional e-commerce platforms.',
+  'careers.job1.title': 'Senior Software Engineer',
+  'careers.job1.details': 'Full-time · Remote · Mexico',
+  'careers.job2.title': 'UX/UI Designer',
+  'careers.job2.details': 'Full-time · Hybrid · Mexico City',
+  'careers.job3.title': 'Logistics Specialist',
+  'careers.job3.details': 'Part-time · On-site · Monterrey',
+  'careers.sendCV': 'Send us your CV to {email}',
+
+  // Deals
+  'deals.subtitle': 'Selected products with special pricing.',
+  'deals.empty': 'There are no deals available at this moment.',
+
+  // Privacy
+  'privacy.lastUpdated': 'Last updated: January 2025',
+  'privacy.intro': 'At ProStore, we value your privacy. This policy describes how we collect, use, and protect your personal information.',
+  'privacy.section1.title': 'Information We Collect',
+  'privacy.section1.desc': 'We collect information you provide directly to us, such as name, email, and shipping address when you create an account or make a purchase.',
+  'privacy.section2.title': 'Use of Information',
+  'privacy.section2.desc': 'We use your information to process orders, improve our services, and communicate with you about your account.',
+  'privacy.section3.title': 'Data Protection',
+  'privacy.section3.desc': 'We implement technical and organizational security measures to protect your information from unauthorized access.',
+  'privacy.section4.title': 'Contact',
+  'privacy.section4.desc': 'If you have questions about this policy, contact us at privacy@prostore.com',
+
+  // Terms
+  'terms.lastUpdated': 'Last updated: January 2025',
+  'terms.intro': 'By accessing and using ProStore, you agree to comply with these terms of service.',
+  'terms.section1.title': 'Use of Service',
+  'terms.section1.desc': 'ProStore provides a platform for purchasing electronics and workspace solutions. You must be over 18 years of age to use our services.',
+  'terms.section2.title': 'User Accounts',
+  'terms.section2.desc': 'You are responsible for maintaining the confidentiality of your account and password. Notify us immediately of any unauthorized use.',
+  'terms.section3.title': 'Pricing and Payments',
+  'terms.section3.desc': 'All prices are in Mexican Pesos (MXN) and include applicable taxes. We reserve the right to modify prices at any time.',
+  'terms.section4.title': 'Shipping and Returns',
+  'terms.section4.desc': 'We offer shipping throughout the Mexican Republic. Returns are accepted within 30 days of receipt.',
+
+  // Forgot Password
+  'forgot.tokenGenerated': 'Token generated. Please check your email.',
+  'forgot.sendToken': 'Send Token',
+  'forgot.passwordUpdated': 'Password updated. You can now log in.',
+
+  // Footer Alert
+  'footer.subscribeSuccess': 'Subscription successful!',
+  'footer.subscribeError': 'Error subscribing. Please try again.',
+
+  // Dashboard Stats/Labels
+  'dashboard.unitsCount': '{n} Units',
+  'dashboard.pendingCount': '{n} Pending',
+  'dashboard.inStock': 'In Stock',
+  'dashboard.lowStock': 'Low Stock',
+  'dashboard.salesMetric': 'Metric',
+  'dashboard.valueMetric': 'Value',
+  'dashboard.monthMetric': 'Month',
+  'dashboard.salesMetricName': 'Sales',
+
+  // Admin Users
+  'admin.usersRegistered': '{n} registered users',
+  'admin.table.name': 'NAME',
+  'admin.table.email': 'EMAIL',
+  'admin.table.role': 'ROLE',
+  'admin.table.registered': 'REGISTERED',
+
+  // Admin Activity
+  'admin.activityFullLog': 'Complete system activity log',
+  'admin.noActivity': 'No activity recorded',
+  'admin.loadMessageError': 'Error loading message',
+
+  // Category names & descriptions
+  'category.name.Computadoras': 'Computers',
+  'category.name.Monitores': 'Monitors',
+  'category.name.Accesorios': 'Accessories',
+  'category.name.Muebles': 'Office Furniture',
+  'category.name.Audio': 'Audio',
+  'category.name.Periféricos': 'Peripherals',
+  'category.desc.Computadoras': 'High-performance laptops and computer equipment',
+  'category.desc.Monitores': 'Professional displays for work and gaming',
+  'category.desc.Accesorios': 'Keyboards, mice, and productivity accessories',
+  'category.desc.Muebles': 'Ergonomic chairs and desks',
+  'category.desc.Audio': 'Headphones, speakers, and sound systems',
+  'category.desc.Periféricos': 'Cameras, hubs, and external devices',
+
+  // Product names
+  'product.name.ProBook Ultra 16': 'ProBook Ultra 16',
+  'product.name.WorkStation Pro M2': 'WorkStation Pro M2',
+  'product.name.UltraBook Air 14': 'UltraBook Air 14',
+  'product.name.Gamer Titan X': 'Gamer Titan X',
+  'product.name.ProView 32" 4K': 'ProView 32" 4K',
+  'product.name.UltraWide 34" Curvo': 'UltraWide 34" Curved',
+  'product.name.Gaming 27" 240Hz': 'Gaming 27" 240Hz',
+  'product.name.Portátil 15" USB-C': 'Portable 15" USB-C',
+  'product.name.Teclado Mecánico RGB': 'RGB Mechanical Keyboard',
+  'product.name.Mouse Inalámbrico Pro': 'Pro Wireless Mouse',
+  'product.name.Alfombrilla XXL Escritorio': 'XXL Desk Pad',
+  'product.name.Webcam 4K Pro': 'Webcam 4K Pro',
+  'product.name.Silla Ergonómica Pro': 'Pro Ergonomic Chair',
+  'product.name.Escritorio Eléctrico Ajustable': 'Adjustable Electric Desk',
+  'product.name.Soporte Monitor Dual': 'Dual Monitor Stand',
+  'product.name.Base Laptop Ajustable': 'Adjustable Laptop Stand',
+  'product.name.Audífonos ANC Premium': 'Premium ANC Headphones',
+  'product.name.Bocina Bluetooth Portátil': 'Portable Bluetooth Speaker',
+  'product.name.Micrófono Condenser USB': 'USB Condenser Microphone',
+  'product.name.SoundBar Escritorio': 'Desktop Soundbar',
+  'product.name.Hub USB-C 12 en 1': '12-in-1 USB-C Hub',
+  'product.name.Tableta Gráfica Profesional': 'Professional Graphics Tablet',
+  'product.name.Lector de Huellas USB': 'USB Fingerprint Reader',
+  'product.name.Estación de Carga Múltiple': 'Multiple Charging Station',
+
+  // Product descriptions
+  'product.desc.ProBook Ultra 16': 'Professional laptop with Intel Core i9-13900H, 32GB DDR5, 1TB NVMe SSD, 16" 4K OLED display, NVIDIA RTX 4070 graphics',
+  'product.desc.WorkStation Pro M2': 'Workstation with M2 Ultra chip, 64GB unified RAM, 2TB SSD, ideal for 3D rendering and 8K video',
+  'product.desc.UltraBook Air 14': 'Slim 14" ultrabook with AMD Ryzen 7 processor, 16GB RAM, 512GB SSD, 15-hour battery life',
+  'product.desc.Gamer Titan X': 'Gaming laptop with RTX 4090, 64GB RAM, 2TB SSD, 17" 240Hz screen, RGB mechanical keyboard',
+  'product.desc.ProView 32" 4K': 'Professional 32" UHD 4K monitor, IPS panel, Delta E<2 factory calibration, 100% sRGB, USB-C 96W',
+  'product.desc.UltraWide 34" Curvo': 'Ultrawide 34" curved WQHD monitor, 144Hz, 1ms, AMD FreeSync Premium Pro, built-in speakers',
+  'product.desc.Gaming 27" 240Hz': 'Gaming 27" QHD 240Hz monitor, OLED panel, 0.03ms, G-Sync compatible, HDR True Black 600',
+  'product.desc.Portátil 15" USB-C': 'Portable 15.6" FHD monitor, USB-C plug-and-play, weight 700g, ideal for mobile setups',
+  'product.desc.Teclado Mecánico RGB': 'Full-size mechanical keyboard with Cherry MX Blue switches, per-key RGB backlighting, anodized aluminum',
+  'product.desc.Mouse Inalámbrico Pro': 'Pro wireless ergonomic mouse with 26,000 DPI sensor, 8 programmable buttons, 70h battery life, fast charging',
+  'product.desc.Alfombrilla XXL Escritorio': 'XXL desk mat 90x40cm, smooth fabric surface, non-slip base, stitched edges',
+  'product.desc.Webcam 4K Pro': '4K webcam with autofocus, stereo microphone, 90° field of view, privacy shutter',
+  'product.desc.Silla Ergonómica Pro': 'Ergonomic office chair with adjustable lumbar support, 4D armrests, breathable mesh, 150kg capacity',
+  'product.desc.Escritorio Eléctrico Ajustable': 'Standing desk with dual-lift electric motor, 72-120cm range, 140x70cm desktop, 100kg capacity',
+  'product.desc.Soporte Monitor Dual': 'Articulated arm for two monitors up to 32", height and rotation adjustment, integrated cable management',
+  'product.desc.Base Laptop Ajustable': 'Aluminum laptop stand with 6 adjustable angles, integrated ventilation, folding for transport',
+  'product.desc.Audífonos ANC Premium': 'Over-ear headphones with hybrid active noise cancellation, 40h battery, LDAC codec, foldable',
+  'product.desc.Bocina Bluetooth Portátil': 'IP67 waterproof wireless speaker, 360° sound, 20h battery life, stereo pairing',
+  'product.desc.Micrófono Condenser USB': 'Condenser microphone for streaming and podcasting, cardoid pattern, adjustable gain, real-time monitor',
+  'product.desc.SoundBar Escritorio': 'Compact desktop soundbar, Bluetooth 5.3, USB-C, integrated equalizer, 30W RMS',
+  'product.desc.Hub USB-C 12 en 1': 'Multiport hub with 4K HDMI, Gigabit Ethernet, 3x USB-A, SD/TF reader, 3.5mm audio, 100W PD',
+  'product.desc.Tableta Gráfica Profesional': 'Professional Graphics Tablet',
+  'product.desc.Lector de Huellas USB': 'USB Fingerprint Reader',
+  'product.desc.Estación de Carga Múltiple': 'Multiple Charging Station',
+  'product.name.SmartWatch Pro X': 'SmartWatch Pro X',
+  'product.name.Cloud Runner 2024': 'Cloud Runner 2024',
+  'product.name.SonicWave Headphones': 'SonicWave Headphones',
+  'category.name.Electronics': 'Electronics',
+  'category.name.Footwear': 'Footwear',
 };
 
 export default en;

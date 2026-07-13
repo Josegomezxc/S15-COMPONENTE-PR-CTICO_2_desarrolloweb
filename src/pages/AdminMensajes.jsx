@@ -45,7 +45,7 @@ export default function AdminMensajes() {
       setRespuesta('');
     } catch {
       setTipoMsg('error');
-      setMsg('Error al cargar mensaje');
+      setMsg(t('admin.loadMessageError'));
     }
   };
 

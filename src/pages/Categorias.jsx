@@ -48,8 +48,8 @@ export default function Categorias() {
                   {iconMap[cat.nombre] || 'category'}
                 </span>
               </div>
-              <h3>{cat.nombre}</h3>
-              <p>{cat.descripcion}</p>
+              <h3>{t('category.name.' + cat.nombre) || cat.nombre}</h3>
+              <p>{t('category.desc.' + cat.nombre) || cat.descripcion}</p>
               <div className="btn-overlay">
                 <span className="btn btn-secondary btn-sm" style={{ pointerEvents: 'none' }}>
                   {t('products.viewProducts')} &rarr;

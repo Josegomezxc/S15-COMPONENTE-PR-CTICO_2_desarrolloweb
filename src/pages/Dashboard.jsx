@@ -14,17 +14,18 @@ export default function Dashboard() {
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [viewMode, setViewMode] = useState('weekly');
 
   const exportCSV = useCallback(() => {
     if (!stats) return;
     const rows = [
-      ['Métrica', 'Valor'],
-      ['Ventas Totales', `$${stats.ventasTotales.toFixed(2)}`],
-      ['Productos Activos', stats.totalProductos],
-      ['Nuevos Pedidos', stats.totalOrdenes],
-      ['Usuarios Nuevos', stats.totalUsuarios],
+      [t('dashboard.salesMetric'), t('dashboard.valueMetric')],
+      [t('admin.totalSales'), `$${stats.ventasTotales.toFixed(2)}`],
+      [t('admin.activeProducts'), stats.totalProductos],
+      [t('admin.newOrders'), stats.totalOrdenes],
+      [t('admin.newUsers'), stats.totalUsuarios],
       ['', ''],
-      ['Mes', 'Ventas'],
+      [t('dashboard.monthMetric'), t('dashboard.salesMetricName')],
       ...(stats.ventasPorMes || []).map((v) => [v.mes, `$${v.total.toFixed(2)}`]),
     ];
     const csv = rows.map((r) => r.join(',')).join('\n');
@@ -51,14 +52,22 @@ export default function Dashboard() {
             totalProductos: 482,
             totalOrdenes: 84,
             totalUsuarios: 1240,
+            ventasPorDia: [
+              { label: 'Mon', total: 120 },
+              { label: 'Tue', total: 180 },
+              { label: 'Wed', total: 150 },
+              { label: 'Thu', total: 240 },
+              { label: 'Fri', total: 290 },
+              { label: 'Sat', total: 200 },
+              { label: 'Sun', total: 260 }
+            ],
             ventasPorMes: [
-              { mes: 'Mon', total: 120 },
-              { mes: 'Tue', total: 180 },
-              { mes: 'Wed', total: 150 },
-              { mes: 'Thu', total: 240 },
-              { mes: 'Fri', total: 290, active: true },
-              { mes: 'Sat', total: 200 },
-              { mes: 'Sun', total: 260 }
+              { label: 'Ene', total: 1400 },
+              { label: 'Feb', total: 1800 },
+              { label: 'Mar', total: 1600 },
+              { label: 'Abr', total: 2500 },
+              { label: 'May', total: 2900 },
+              { label: 'Jun', total: 3200 }
             ]
           });
         })
@@ -151,18 +160,128 @@ export default function Dashboard() {
     totalProductos: 482,
     totalOrdenes: 84,
     totalUsuarios: 1240,
+    ventasPorDia: [
+      { label: 'Mon', total: 120 },
+      { label: 'Tue', total: 180 },
+      { label: 'Wed', total: 150 },
+      { label: 'Thu', total: 240 },
+      { label: 'Fri', total: 290 },
+      { label: 'Sat', total: 200 },
+      { label: 'Sun', total: 260 }
+    ],
     ventasPorMes: [
-      { mes: 'Mon', total: 120 },
-      { mes: 'Tue', total: 180 },
-      { mes: 'Wed', total: 150 },
-      { mes: 'Thu', total: 240 },
-      { mes: 'Fri', total: 290, active: true },
-      { mes: 'Sat', total: 200 },
-      { mes: 'Sun', total: 260 }
+      { label: 'Ene', total: 1400 },
+      { label: 'Feb', total: 1800 },
+      { label: 'Mar', total: 1600 },
+      { label: 'Abr', total: 2500 },
+      { label: 'May', total: 2900 },
+      { label: 'Jun', total: 3200 }
     ]
   };
 
-  const maxSales = Math.max(...(activeStats.ventasPorMes || []).map(v => v.total), 1);
+  const renderLineChart = () => {
+    const data = viewMode === 'weekly' ? (activeStats.ventasPorDia || []) : (activeStats.ventasPorMes || []);
+    
+    if (data.length === 0) {
+      return (
+        <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--on-surface-variant)' }}>
+          No data available
+        </div>
+      );
+    }
+
+    const maxVal = Math.max(...data.map(d => d.total), 1);
+    const width = 500;
+    const height = 200;
+    const paddingX = 50;
+    const paddingY = 25;
+
+    const points = data.map((item, index) => {
+      const x = paddingX + (index / Math.max(data.length - 1, 1)) * (width - paddingX * 2);
+      const y = height - paddingY - (item.total / maxVal) * (height - paddingY * 2);
+      return { x, y, label: item.label || item.mes, total: item.total };
+    });
+
+    const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+    const areaPath = points.length > 0 
+      ? `${linePath} L ${points[points.length - 1].x} ${height - paddingY} L ${points[0].x} ${height - paddingY} Z`
+      : '';
+
+    return (
+      <div style={{ position: 'relative', width: '100%', padding: '10px 0' }}>
+        <svg viewBox={`0 0 ${width} ${height}`} width="100%" height={220} style={{ overflow: 'visible' }}>
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#6cf8bb" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#6cf8bb" stopOpacity="0.0" />
+            </linearGradient>
+          </defs>
+
+          {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => {
+            const y = paddingY + ratio * (height - paddingY * 2);
+            const value = maxVal * (1 - ratio);
+            return (
+              <g key={i} opacity="0.15">
+                <line x1={paddingX} y1={y} x2={width - paddingX} y2={y} stroke="var(--outline)" strokeDasharray="4 4" />
+                <text x={paddingX - 8} y={y + 4} textAnchor="end" fontSize="10" fill="var(--on-surface)" fontWeight="600">
+                  ${Math.round(value)}
+                </text>
+              </g>
+            );
+          })}
+
+          {areaPath && <path d={areaPath} fill="url(#chartGrad)" />}
+
+          {linePath && (
+            <path 
+              d={linePath} 
+              fill="none" 
+              stroke="#6cf8bb" 
+              strokeWidth="4" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              style={{ filter: 'drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.05))' }}
+            />
+          )}
+
+          {points.map((p, i) => (
+            <g key={i} className="chart-point-group" style={{ cursor: 'pointer' }}>
+              <circle 
+                cx={p.x} 
+                cy={p.y} 
+                r="5" 
+                fill="#ffffff" 
+                stroke="#6cf8bb" 
+                strokeWidth="3" 
+              />
+              <circle 
+                cx={p.x} 
+                cy={p.y} 
+                r="12" 
+                fill="transparent" 
+              >
+                <title>{`${p.label}: $${p.total.toFixed(2)}`}</title>
+              </circle>
+            </g>
+          ))}
+
+          {points.map((p, i) => (
+            <text 
+              key={i} 
+              x={p.x} 
+              y={height - 2} 
+              textAnchor="middle" 
+              fontSize="10" 
+              fontWeight="600" 
+              fill="var(--on-surface-variant)"
+            >
+              {p.label}
+            </text>
+          ))}
+        </svg>
+      </div>
+    );
+  };
 
   return (
     <div className="admin-layout">
@@ -214,7 +333,7 @@ export default function Dashboard() {
                     <span className="material-symbols-outlined">inventory_2</span>
                   </div>
                   <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--on-surface-variant)' }}>
-                    1,204 Units
+                    {t('dashboard.unitsCount', { n: '1,204' })}
                   </div>
                 </div>
                 <div>
@@ -229,7 +348,7 @@ export default function Dashboard() {
                     <span className="material-symbols-outlined">shopping_cart</span>
                   </div>
                   <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--on-tertiary-container)' }}>
-                    4 Pending
+                    {t('dashboard.pendingCount', { n: 4 })}
                   </div>
                 </div>
                 <div>
@@ -261,35 +380,22 @@ export default function Dashboard() {
                 <div className="sales-chart-header">
                   <h4>{t('admin.salesTrends')}</h4>
                   <div className="chart-tabs">
-                    <button className="chart-tab active">{t('admin.weekly')}</button>
-                    <button className="chart-tab">{t('admin.monthly')}</button>
+                    <button 
+                      className={`chart-tab ${viewMode === 'weekly' ? 'active' : ''}`}
+                      onClick={() => setViewMode('weekly')}
+                    >
+                      {t('admin.weekly')}
+                    </button>
+                    <button 
+                      className={`chart-tab ${viewMode === 'monthly' ? 'active' : ''}`}
+                      onClick={() => setViewMode('monthly')}
+                    >
+                      {t('admin.monthly')}
+                    </button>
                   </div>
                 </div>
-                <div className="chart-bars">
-                  {(activeStats.ventasPorMes || []).map((item, i) => {
-                    const pct = (item.total / maxSales) * 100;
-                    return (
-                      <div key={i} className="chart-bar-container" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, height: '100%', justifyContent: 'flex-end' }}>
-                        <div 
-                          className={`chart-bar ${item.active ? 'active' : ''}`} 
-                          style={{ 
-                            height: `${pct}%`, 
-                            width: '100%', 
-                            maxWidth: '40px',
-                            background: item.active ? 'var(--secondary) !important' : '#6cf8bb !important'
-                          }} 
-                          title={`${item.mes}: $${item.total}`}
-                        ></div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="chart-labels" style={{ marginTop: 8 }}>
-                  {(activeStats.ventasPorMes || []).map((item, i) => (
-                    <span key={i} style={{ flex: 1, textAlign: 'center', fontSize: '12px', fontWeight: '500', color: 'var(--on-surface-variant)' }}>
-                      {item.mes}
-                    </span>
-                  ))}
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '220px' }}>
+                  {renderLineChart()}
                 </div>
               </div>
 
@@ -368,12 +474,12 @@ export default function Dashboard() {
                         <div style={{ width: 36, height: 36, background: 'var(--surface-container-low)', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                           <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--outline)' }}>watch</span>
                         </div>
-                        <span style={{ fontWeight: 600 }}>SmartWatch Pro X</span>
+                        <span style={{ fontWeight: 600 }}>{t('product.name.SmartWatch Pro X') || 'SmartWatch Pro X'}</span>
                       </td>
-                      <td><span className="category-badge" style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>Electronics</span></td>
+                      <td><span className="category-badge" style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>{t('category.name.Electronics') || 'Electronics'}</span></td>
                       <td style={{ fontWeight: 500 }}>1,248</td>
                       <td>
-                        <span className="order-badge entregado" style={{ fontSize: 11, padding: '2px 8px' }}>In Stock</span>
+                        <span className="order-badge entregado" style={{ fontSize: 11, padding: '2px 8px' }}>{t('dashboard.inStock')}</span>
                       </td>
                       <td style={{ fontWeight: 600 }}>$299.00</td>
                     </tr>
@@ -382,12 +488,12 @@ export default function Dashboard() {
                         <div style={{ width: 36, height: 36, background: 'var(--surface-container-low)', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                           <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--outline)' }}>steps</span>
                         </div>
-                        <span style={{ fontWeight: 600 }}>Cloud Runner 2024</span>
+                        <span style={{ fontWeight: 600 }}>{t('product.name.Cloud Runner 2024') || 'Cloud Runner 2024'}</span>
                       </td>
-                      <td><span className="category-badge" style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>Footwear</span></td>
+                      <td><span className="category-badge" style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>{t('category.name.Footwear') || 'Footwear'}</span></td>
                       <td style={{ fontWeight: 500 }}>942</td>
                       <td>
-                        <span className="order-badge entregado" style={{ fontSize: 11, padding: '2px 8px' }}>In Stock</span>
+                        <span className="order-badge entregado" style={{ fontSize: 11, padding: '2px 8px' }}>{t('dashboard.inStock')}</span>
                       </td>
                       <td style={{ fontWeight: 600 }}>$149.50</td>
                     </tr>
@@ -396,12 +502,12 @@ export default function Dashboard() {
                         <div style={{ width: 36, height: 36, background: 'var(--surface-container-low)', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                           <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--outline)' }}>headphones</span>
                         </div>
-                        <span style={{ fontWeight: 600 }}>SonicWave Headphones</span>
+                        <span style={{ fontWeight: 600 }}>{t('product.name.SonicWave Headphones') || 'SonicWave Headphones'}</span>
                       </td>
-                      <td><span className="category-badge" style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>Electronics</span></td>
+                      <td><span className="category-badge" style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>{t('category.name.Electronics') || 'Electronics'}</span></td>
                       <td style={{ fontWeight: 500 }}>612</td>
                       <td>
-                        <span className="order-badge pendiente" style={{ fontSize: 11, padding: '2px 8px' }}>Low Stock</span>
+                        <span className="order-badge pendiente" style={{ fontSize: 11, padding: '2px 8px' }}>{t('dashboard.lowStock')}</span>
                       </td>
                       <td style={{ fontWeight: 600 }}>$189.99</td>
                     </tr>

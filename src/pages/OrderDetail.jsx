@@ -55,7 +55,7 @@ export default function OrderDetail() {
             <tbody>
               {orden.items.map((item, idx) => (
                 <tr key={idx}>
-                  <td>{item.nombre}</td>
+                  <td>{t('product.name.' + item.nombre) || item.nombre}</td>
                   <td>${item.precio.toFixed(2)}</td>
                   <td>{item.cantidad}</td>
                   <td>${(item.precio * item.cantidad).toFixed(2)}</td>

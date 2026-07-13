@@ -51,7 +51,7 @@ export default function Orders() {
               <div className="order-body">
                 <p className="order-date">{new Date(orden.createdAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 <p className="order-items-count">{t('orders.productCount', { n: orden.items.length })}</p>
-                <p className="order-total">{t('orders.total')} <strong>${orden.total.toFixed(2)}</strong></p>
+                <p className="order-total"><strong>{t('orders.total', { n: orden.total.toFixed(2) })}</strong></p>
               </div>
               <Link to={`/ordenes/${orden._id}`} className="btn btn-secondary btn-sm">
                 {t('orders.viewDetails')}

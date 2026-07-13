@@ -69,12 +69,12 @@ export default function ProductDetail() {
           )}
         </div>
         <div className="product-detail-info">
-          <p className="product-detail-categoria">{producto.categoria?.nombre || 'General'}</p>
-          <h1>{producto.nombre}</h1>
+          <p className="product-detail-categoria">{t('category.name.' + producto.categoria?.nombre) || producto.categoria?.nombre || 'General'}</p>
+          <h1>{t('product.name.' + producto.nombre) || producto.nombre}</h1>
           <div className="stars">{renderStars(4.5)} <span style={{fontSize:14, color:'var(--on-surface-variant)'}}>(4.5)</span></div>
           <p className="product-detail-precio">${producto.precio.toFixed(2)}</p>
-          <p className="product-detail-descripcion">{producto.descripcion}</p>
-          <p className="product-detail-stock"><strong>{t('detail.stock')}</strong> {producto.stock} {t('detail.units')}</p>
+          <p className="product-detail-descripcion">{t('product.desc.' + producto.nombre) || producto.descripcion}</p>
+          <p className="product-detail-stock"><strong>{t('detail.stock', { n: producto.stock })}</strong></p>
 
           <Message tipo="success" mensaje={msg} />
           <Message tipo="error" mensaje={error} />

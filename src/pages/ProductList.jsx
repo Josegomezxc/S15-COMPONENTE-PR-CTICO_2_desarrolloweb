@@ -100,7 +100,7 @@ export default function ProductList() {
                 onClick={() => handleFiltrar(cat._id)}
               >
                 <span className="material-symbols-outlined">{iconMap[cat.nombre] || iconMap.default}</span>
-                {cat.nombre}
+                {t('category.name.' + cat.nombre) || cat.nombre}
               </button>
             ))}
           </div>

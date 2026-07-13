@@ -24,11 +24,11 @@ export default function Ofertas() {
       <main className="product-main" style={{ maxWidth: 1200, margin: '0 auto' }}>
         <h1 style={{ marginBottom: 8 }}>{t('nav.deals')}</h1>
         <p style={{ color: 'var(--on-surface-variant)', marginBottom: 32 }}>
-          Productos seleccionados con precios especiales.
+          {t('deals.subtitle')}
         </p>
         {productos.length === 0 ? (
           <p style={{ textAlign: 'center', padding: 48, color: 'var(--on-surface-variant)' }}>
-            No hay ofertas disponibles en este momento.
+            {t('deals.empty')}
           </p>
         ) : (
           <div className="product-grid">

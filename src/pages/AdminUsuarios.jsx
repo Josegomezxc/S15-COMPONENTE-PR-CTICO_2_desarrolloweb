@@ -27,17 +27,17 @@ export default function AdminUsuarios() {
             <h1 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--primary)', marginBottom: '4px' }}>
               {t('admin.customers')}
             </h1>
-            <p style={{ margin: 0, color: 'var(--on-surface-variant)' }}>{usuarios.length} usuarios registrados</p>
+            <p style={{ margin: 0, color: 'var(--on-surface-variant)' }}>{t('admin.usersRegistered', { n: usuarios.length })}</p>
           </div>
         </div>
         <div className="admin-table-wrap">
           <table className="admin-table">
             <thead>
               <tr>
-                <th>NOMBRE</th>
-                <th>EMAIL</th>
-                <th>ROL</th>
-                <th>REGISTRO</th>
+                <th>{t('admin.table.name')}</th>
+                <th>{t('admin.table.email')}</th>
+                <th>{t('admin.table.role')}</th>
+                <th>{t('admin.table.registered')}</th>
               </tr>
             </thead>
             <tbody>
