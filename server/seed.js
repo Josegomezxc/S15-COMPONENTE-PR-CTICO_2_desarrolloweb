@@ -20,35 +20,35 @@ const CATEGORIAS = [
 
 const PRODUCTOS = [
   // Computadoras
-  { nombre: 'ProBook Ultra 16', descripcion: 'Laptop profesional con Intel Core i9-13900H, 32GB DDR5, 1TB SSD NVMe, pantalla 16" 4K OLED, gráficos NVIDIA RTX 4070', precio: 28999.99, categoria: 'Computadoras', stock: 12 },
-  { nombre: 'WorkStation Pro M2', descripcion: 'Estación de trabajo con chip M2 Ultra, 64GB RAM unificada, 2TB SSD, ideal para renderizado 3D y video 8K', precio: 45999.99, categoria: 'Computadoras', stock: 5 },
-  { nombre: 'UltraBook Air 14', descripcion: 'Ultrabook delgado de 14" con procesador AMD Ryzen 7, 16GB RAM, 512GB SSD, batería de 15 horas', precio: 18999.99, categoria: 'Computadoras', stock: 25 },
-  { nombre: 'Gamer Titan X', descripcion: 'Laptop gaming con RTX 4090, 64GB RAM, 2TB SSD, pantalla 17" 240Hz, teclado mecánico RGB', precio: 38999.99, categoria: 'Computadoras', stock: 8 },
+  { nombre: 'ProBook Ultra 16', descripcion: 'Laptop profesional con Intel Core i9-13900H, 32GB DDR5, 1TB SSD NVMe, pantalla 16" 4K OLED, gráficos NVIDIA RTX 4070', precio: 1299.99, categoria: 'Computadoras', stock: 12 },
+  { nombre: 'WorkStation Pro M2', descripcion: 'Estación de trabajo con chip M2 Ultra, 64GB RAM unificada, 2TB SSD, ideal para renderizado 3D y video 8K', precio: 2499.99, categoria: 'Computadoras', stock: 5 },
+  { nombre: 'UltraBook Air 14', descripcion: 'Ultrabook delgado de 14" con procesador AMD Ryzen 7, 16GB RAM, 512GB SSD, batería de 15 horas', precio: 699.99, categoria: 'Computadoras', stock: 25 },
+  { nombre: 'Gamer Titan X', descripcion: 'Laptop gaming con RTX 4090, 64GB RAM, 2TB SSD, pantalla 17" 240Hz, teclado mecánico RGB', precio: 2199.99, categoria: 'Computadoras', stock: 8 },
   // Monitores
-  { nombre: 'ProView 32" 4K', descripcion: 'Monitor profesional 32" UHD 4K, panel IPS, calibración de fábrica Delta E<2, 100% sRGB, USB-C 96W', precio: 12499.99, categoria: 'Monitores', stock: 15 },
-  { nombre: 'UltraWide 34" Curvo', descripcion: 'Monitor ultra panorámico 34" WQHD curvo, 144Hz, 1ms, AMD FreeSync Premium Pro, altavoces integrados', precio: 15999.99, categoria: 'Monitores', stock: 10 },
-  { nombre: 'Gaming 27" 240Hz', descripcion: 'Monitor gaming 27" QHD 240Hz, panel OLED, 0.03ms, G-Sync compatible, HDR True Black 600', precio: 18999.99, categoria: 'Monitores', stock: 7 },
-  { nombre: 'Portátil 15" USB-C', descripcion: 'Monitor portátil 15.6" FHD, USB-C plug-and-play, peso 700g, ideal para setups móviles', precio: 5499.99, categoria: 'Monitores', stock: 20 },
+  { nombre: 'ProView 32" 4K', descripcion: 'Monitor profesional 32" UHD 4K, panel IPS, calibración de fábrica Delta E<2, 100% sRGB, USB-C 96W', precio: 449.99, categoria: 'Monitores', stock: 15 },
+  { nombre: 'UltraWide 34" Curvo', descripcion: 'Monitor ultra panorámico 34" WQHD curvo, 144Hz, 1ms, AMD FreeSync Premium Pro, altavoces integrados', precio: 399.99, categoria: 'Monitores', stock: 10 },
+  { nombre: 'Gaming 27" 240Hz', descripcion: 'Monitor gaming 27" QHD 240Hz, panel OLED, 0.03ms, G-Sync compatible, HDR True Black 600', precio: 599.99, categoria: 'Monitores', stock: 7 },
+  { nombre: 'Portátil 15" USB-C', descripcion: 'Monitor portátil 15.6" FHD, USB-C plug-and-play, peso 700g, ideal para setups móviles', precio: 179.99, categoria: 'Monitores', stock: 20 },
   // Accesorios
-  { nombre: 'Teclado Mecánico RGB', descripcion: 'Teclado mecánico full-size con switches Cherry MX Blue, retroiluminación RGB por tecla, aluminio anodizado', precio: 2899.99, categoria: 'Accesorios', stock: 30 },
-  { nombre: 'Mouse Inalámbrico Pro', descripcion: 'Mouse ergonómico inalámbrico con sensor de 26,000 DPI, 8 botones programables, batería 70h, carga rápida', precio: 2199.99, categoria: 'Accesorios', stock: 40 },
-  { nombre: 'Alfombrilla XXL Escritorio', descripcion: 'Alfombrilla de escritorio 90x40cm, superficie de tela suave, base antideslizante, bordes cosidos', precio: 699.99, categoria: 'Accesorios', stock: 60, enOferta: true },
-  { nombre: 'Webcam 4K Pro', descripcion: 'Cámara web 4K con enfoque automático, micrófono estéreo, campo de visión 90°, obturador de privacidad', precio: 3299.99, categoria: 'Accesorios', stock: 18 },
+  { nombre: 'Teclado Mecánico RGB', descripcion: 'Teclado mecánico full-size con switches Cherry MX Blue, retroiluminación RGB por tecla, aluminio anodizado', precio: 89.99, categoria: 'Accesorios', stock: 30 },
+  { nombre: 'Mouse Inalámbrico Pro', descripcion: 'Mouse ergonómico inalámbrico con sensor de 26,000 DPI, 8 botones programables, batería 70h, carga rápida', precio: 59.99, categoria: 'Accesorios', stock: 40 },
+  { nombre: 'Alfombrilla XXL Escritorio', descripcion: 'Alfombrilla de escritorio 90x40cm, superficie de tela suave, base antideslizante, bordes cosidos', precio: 24.99, categoria: 'Accesorios', stock: 60, enOferta: true },
+  { nombre: 'Webcam 4K Pro', descripcion: 'Cámara web 4K con enfoque automático, micrófono estéreo, campo de visión 90°, obturador de privacidad', precio: 129.99, categoria: 'Accesorios', stock: 18 },
   // Muebles
-  { nombre: 'Silla Ergonómica Pro', descripcion: 'Silla de oficina ergonómica con soporte lumbar ajustable, reposabrazos 4D, malla transpirable, capacidad 150kg', precio: 12499.99, categoria: 'Muebles', stock: 10 },
-  { nombre: 'Escritorio Eléctrico Ajustable', descripcion: 'Escritorio de pie con motor eléctrico de doble elevación, rango 72-120cm, tablero 140x70cm, capacidad 100kg', precio: 15999.99, categoria: 'Muebles', stock: 6 },
-  { nombre: 'Soporte Monitor Dual', descripcion: 'Brazo articulado para dos monitores de hasta 32", ajuste de altura y rotación, gestión de cables integrada', precio: 3499.99, categoria: 'Muebles', stock: 22 },
-  { nombre: 'Base Laptop Ajustable', descripcion: 'Soporte de laptop de aluminio con 6 ángulos ajustables, ventilación integrada, plegable para transporte', precio: 1299.99, categoria: 'Muebles', stock: 35 },
+  { nombre: 'Silla Ergonómica Pro', descripcion: 'Silla de oficina ergonómica con soporte lumbar ajustable, reposabrazos 4D, malla transpirable, capacidad 150kg', precio: 449.99, categoria: 'Muebles', stock: 10 },
+  { nombre: 'Escritorio Eléctrico Ajustable', descripcion: 'Escritorio de pie con motor eléctrico de doble elevación, rango 72-120cm, tablero 140x70cm, capacidad 100kg', precio: 599.99, categoria: 'Muebles', stock: 6 },
+  { nombre: 'Soporte Monitor Dual', descripcion: 'Brazo articulado para dos monitores de hasta 32", ajuste de altura y rotación, gestión de cables integrada', precio: 89.99, categoria: 'Muebles', stock: 22 },
+  { nombre: 'Base Laptop Ajustable', descripcion: 'Soporte de laptop de aluminio con 6 ángulos ajustables, ventilación integrada, plegable para transporte', precio: 39.99, categoria: 'Muebles', stock: 35 },
   // Audio
-  { nombre: 'Audífonos ANC Premium', descripcion: 'Audífonos over-ear con cancelación de ruido activa híbrida, 40h batería, codec LDAC, plegables', precio: 5499.99, categoria: 'Audio', stock: 20 },
-  { nombre: 'Bocina Bluetooth Portátil', descripcion: 'Bocina inalámbrica resistente al agua IP67, sonido 360°, 20h batería, emparejamiento estéreo', precio: 2999.99, categoria: 'Audio', stock: 25, enOferta: true },
-  { nombre: 'Micrófono Condenser USB', descripcion: 'Micrófono de condensador para streaming y podcast, patrón cardioide, ganancia ajustable, monitor en tiempo real', precio: 3999.99, categoria: 'Audio', stock: 14 },
-  { nombre: 'SoundBar Escritorio', descripcion: 'Barra de sonido compacta para escritorio, Bluetooth 5.3, USB-C, ecualizador integrado, 30W RMS', precio: 2199.99, categoria: 'Audio', stock: 28 },
+  { nombre: 'Audífonos ANC Premium', descripcion: 'Audífonos over-ear con cancelación de ruido activa híbrida, 40h batería, codec LDAC, plegables', precio: 199.99, categoria: 'Audio', stock: 20 },
+  { nombre: 'Bocina Bluetooth Portátil', descripcion: 'Bocina inalámbrica resistente al agua IP67, sonido 360°, 20h batería, emparejamiento estéreo', precio: 89.99, categoria: 'Audio', stock: 25, enOferta: true },
+  { nombre: 'Micrófono Condenser USB', descripcion: 'Micrófono de condensador para streaming y podcast, patrón cardioide, ganancia ajustable, monitor en tiempo real', precio: 129.99, categoria: 'Audio', stock: 14 },
+  { nombre: 'SoundBar Escritorio', descripcion: 'Barra de sonido compacta para escritorio, Bluetooth 5.3, USB-C, ecualizador integrado, 30W RMS', precio: 79.99, categoria: 'Audio', stock: 28 },
   // Periféricos
-  { nombre: 'Hub USB-C 12 en 1', descripcion: 'Hub multipuerto con HDMI 4K, Ethernet Gigabit, 3x USB-A, lector SD/TF, audio 3.5mm, PD 100W', precio: 1899.99, categoria: 'Periféricos', stock: 45 },
-  { nombre: 'Tableta Gráfica Profesional', descripcion: 'Tableta de dibujo con lápiz sin batería, 8192 niveles de presión, área activa 10x6", atajos personalizables', precio: 4499.99, categoria: 'Periféricos', stock: 12 },
-  { nombre: 'Lector de Huellas USB', descripcion: 'Lector biométrico con cifrado AES-256, compatible con Windows Hello, plug-and-play, aluminio', precio: 1299.99, categoria: 'Periféricos', stock: 33 },
-  { nombre: 'Estación de Carga Múltiple', descripcion: 'Cargador USB-C con 6 puertos (65W total), carga rápida PD 3.0, GaN, indicadores LED, protección contra sobretensión', precio: 1599.99, categoria: 'Periféricos', stock: 50, enOferta: true },
+  { nombre: 'Hub USB-C 12 en 1', descripcion: 'Hub multipuerto con HDMI 4K, Ethernet Gigabit, 3x USB-A, lector SD/TF, audio 3.5mm, PD 100W', precio: 49.99, categoria: 'Periféricos', stock: 45 },
+  { nombre: 'Tableta Gráfica Profesional', descripcion: 'Tableta de dibujo con lápiz sin batería, 8192 niveles de presión, área activa 10x6", atajos personalizables', precio: 199.99, categoria: 'Periféricos', stock: 12 },
+  { nombre: 'Lector de Huellas USB', descripcion: 'Lector biométrico con cifrado AES-256, compatible con Windows Hello, plug-and-play, aluminio', precio: 39.99, categoria: 'Periféricos', stock: 33 },
+  { nombre: 'Estación de Carga Múltiple', descripcion: 'Cargador USB-C con 6 puertos (65W total), carga rápida PD 3.0, GaN, indicadores LED, protección contra sobretensión', precio: 49.99, categoria: 'Periféricos', stock: 50, enOferta: true },
 ];
 
 const USUARIOS = [
