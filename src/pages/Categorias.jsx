@@ -11,7 +11,7 @@ const iconMap = {
   'Muebles': 'chair_alt',
   'Teclados': 'keyboard',
   'Audio': 'headphones',
-  'Periféricos': 'webcam',
+  'Periféricos': 'videocam',
 };
 
 export default function Categorias() {

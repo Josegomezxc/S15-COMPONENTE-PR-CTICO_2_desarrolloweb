@@ -12,6 +12,8 @@ const iconMap = {
   'default': 'dashboard',
   'Muebles': 'chair_alt',
   'Teclados': 'keyboard',
+  'Audio': 'headphones',
+  'Periféricos': 'videocam',
 };
 
 export default function ProductList() {
